@@ -10,10 +10,11 @@ import { Home } from "./pages/Home";
 import { Packages } from "./pages/Packages";
 import { PackageDetails } from "./pages/PackageDetails";
 import { Gallery } from "./pages/Gallery";
-import { Testimonials } from "./pages/Testimonials";
+import Testimonials from "./pages/Testimonials";
 import { Terms } from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 import "./i18n/config";
+import { i } from "node_modules/framer-motion/dist/types.d-DagZKalS";
 
 const queryClient = new QueryClient();
 

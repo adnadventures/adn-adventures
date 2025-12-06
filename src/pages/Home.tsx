@@ -2,8 +2,9 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin, Users, Award, Shield } from 'lucide-react';
+import { ArrowRight, MapPin, Users, Award, Shield, Calendar, Star } from 'lucide-react';
 import { packages } from '@/data/packages';
+import { TESTIMONIALS } from '@/data/testimonials';
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
@@ -40,6 +41,7 @@ export const Home = () => {
   ];
 
   const featuredPackages = packages.slice(0, 3);
+  const featuredTestimonials = TESTIMONIALS.slice(0, 3);
 
   return (
     <div className="min-h-screen">
@@ -182,7 +184,7 @@ export const Home = () => {
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                        {pkg.duration} {t('packages.days')}
+                        {pkg.category}
                       </div>
                     </div>
                     <div className="p-6">
@@ -194,10 +196,15 @@ export const Home = () => {
                       </p>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-sm text-muted-foreground">{t('packages.from')}</span>
-                          <p className="text-2xl font-bold text-primary">
+                          {/* <span className="text-sm text-muted-foreground">{t('packages.from')}</span> */}
+                          {/* <p className="text-2xl font-bold text-primary">
                             ₹{pkg.price.toLocaleString()}
-                          </p>
+                            {pkg.category}
+                          </p> */}
+                          <span className="flex px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold capitalize">
+                            <Calendar className="h-5 w-5 text-primary mr-3" />
+                            <span>{pkg.duration} days / {pkg.duration - 1} nights</span>
+                          </span>
                         </div>
                         <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
                           {t('packages.viewDetails')}
@@ -218,6 +225,79 @@ export const Home = () => {
               </Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card border-t border-border">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+              {t('testimonials.title')}
+            </h2>
+            <p className="text-xl text-muted-foreground">
+              {t('testimonials.subtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {featuredTestimonials.map((testimonial) => (
+              <div
+                key={testimonial.id}
+                className="p-8 bg-background border border-border rounded-xl hover:border-accent transition-all duration-300 hover:shadow-lg"
+              >
+                {/* Rating */}
+                <div className="flex gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-5 h-5 ${i < testimonial.rating ? "fill-accent text-accent" : "text-border"}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Text */}
+                <p className="text-foreground mb-6 leading-relaxed">"{testimonial.text}"</p>
+
+                {/* Author */}
+                <div className="flex items-center gap-3 pt-4 border-t border-border">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex-shrink-0">
+                    <img
+                      src={testimonial.image || "/placeholder.svg"}
+                      alt={testimonial.name}
+                      width={48}
+                      height={48}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-foreground">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* <div className="mt-12 p-8 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5 border border-border rounded-xl text-center">
+            <h3 className="text-xl font-semibold text-foreground mb-2">Google Reviews & Ratings</h3>
+            <p className="text-muted-foreground mb-4">
+              Our travelers have given us an average rating of 4.8/5 stars on Google
+            </p>
+            <a
+              href="https://www.google.com/search?q=ADN+Adventures+reviews"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-2 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-all"
+            >
+              View on Google
+            </a>
+          </div> */}
         </div>
       </section>
 

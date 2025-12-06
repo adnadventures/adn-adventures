@@ -38,11 +38,10 @@ export const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
           ? 'bg-background/95 backdrop-blur-md shadow-lg'
           : 'bg-transparent'
-      }`}
+        }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
@@ -50,9 +49,10 @@ export const Header = () => {
           <Link to="/" className="flex items-center space-x-2 group">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-display font-bold text-primary"
+              className="flex items-center space-x-2 text-2xl font-display font-bold text-primary"
             >
-              ADN <span className="text-foreground">Adventures</span>
+              <img src="/logo.webp" alt="ADN Adventures Logo" className="h-12 w-12 rounded-full" />
+              <h1>ADN <span className="text-foreground">Adventures</span></h1>
             </motion.div>
           </Link>
 
@@ -62,11 +62,10 @@ export const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`relative text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === link.path
+                className={`relative text-sm font-medium transition-colors hover:text-primary ${location.pathname === link.path
                     ? 'text-primary'
                     : 'text-foreground/80'
-                }`}
+                  }`}
               >
                 {link.label}
                 {location.pathname === link.path && (
@@ -139,11 +138,10 @@ export const Header = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block py-3 px-4 rounded-lg transition-colors ${
-                    location.pathname === link.path
+                  className={`block py-3 px-4 rounded-lg transition-colors ${location.pathname === link.path
                       ? 'bg-primary/10 text-primary font-medium'
                       : 'text-foreground/80 hover:bg-muted'
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>
