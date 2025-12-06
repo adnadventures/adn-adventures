@@ -1,0 +1,68 @@
+{
+  "nav": {
+    "home": "Home",
+    "packages": "Packages",
+    "gallery": "Gallery",
+    "testimonials": "Testimonials",
+    "terms": "Terms & Conditions"
+  },
+  "hero": {
+    "title": "Discover the Magic of India",
+    "subtitle": "From Kanyakumari to Kashmir",
+    "description": "Experience breathtaking journeys across India's most iconic destinations with our expertly curated tour packages",
+    "cta": "Explore Packages",
+    "cta2": "Learn More"
+  },
+  "packages": {
+    "title": "Tour Packages",
+    "subtitle": "Handpicked adventures for every traveler",
+    "filter": {
+      "all": "All Packages",
+      "adventure": "Adventure",
+      "cultural": "Cultural",
+      "spiritual": "Spiritual",
+      "beach": "Beach",
+      "mountain": "Mountain"
+    },
+    "from": "From",
+    "days": "days",
+    "bookNow": "Book Now",
+    "viewDetails": "View Details"
+  },
+  "booking": {
+    "title": "Book Your Adventure",
+    "name": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "date": "Preferred Travel Date",
+    "guests": "Number of Guests",
+    "package": "Select Package",
+    "message": "Special Requests (Optional)",
+    "submit": "Submit Booking",
+    "success": "Booking submitted successfully! We'll contact you soon.",
+    "error": "Failed to submit booking. Please try again."
+  },
+  "gallery": {
+    "title": "Gallery",
+    "subtitle": "Captured moments from our incredible journeys"
+  },
+  "testimonials": {
+    "title": "Testimonials",
+    "subtitle": "What our travelers say",
+    "googleReviews": "Google Reviews"
+  },
+  "footer": {
+    "about": "About ADN Adventures",
+    "aboutText": "Your trusted partner for exploring the wonders of India from Kanyakumari to Kashmir.",
+    "quickLinks": "Quick Links",
+    "contact": "Contact Us",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "rights": "All rights reserved."
+  },
+  "terms": {
+    "title": "Terms, Conditions & Privacy Policy",
+    "lastUpdated": "Last Updated"
+  }
+}
