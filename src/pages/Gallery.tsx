@@ -4,14 +4,8 @@ import { motion } from 'framer-motion';
 export const Gallery = () => {
   const { t } = useTranslation();
 
-  const images = [
-    'https://images.unsplash.com/photo-1524492412937-b28074a5d7da',
-    'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
-    'https://images.unsplash.com/photo-1477587458883-47145ed94245',
-    'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944',
-    'https://images.unsplash.com/photo-1561361513-2d000a50f0dc',
-    'https://images.unsplash.com/photo-1512343879784-a960bf40e7f2',
-  ];
+  const images = Array.from({ length: 14 }, (_, i) => `/gallery/${i + 1}.jpg`);
+  const videos = Array.from({ length: 2 }, (_, i) => `/gallery/${i + 15}.mp4`);
 
   return (
     <div className="min-h-screen pt-24 pb-16">
@@ -26,6 +20,26 @@ export const Gallery = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          {videos.map((vid, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="relative h-80 rounded-2xl overflow-hidden group cursor-pointer"
+            >
+              <video
+                src={vid}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            </motion.div>
+          ))}
           {images.map((img, index) => (
             <motion.div
               key={index}

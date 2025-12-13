@@ -36,9 +36,9 @@ export const packages: Package[] = [
     category: 'mountain',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
     gallery: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4'
+      '/images/kp1.jpg',
+      '/images/kp2.jpg',
+      '/images/kp3.jpg'
     ],
     highlights: [
       'Dal Lake Shikara Ride',
@@ -116,9 +116,9 @@ export const packages: Package[] = [
     category: 'cultural',
     image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245',
     gallery: [
-      'https://images.unsplash.com/photo-1477587458883-47145ed94245',
-      'https://images.unsplash.com/photo-1477587458883-47145ed94245',
-      'https://images.unsplash.com/photo-1477587458883-47145ed94245'
+      '/images/rr1.jpg',   
+      '/images/rr2.jpg',
+      '/images/rr3.jpg'
     ],
     highlights: [
       'Amber Fort, Jaipur',
@@ -210,9 +210,9 @@ export const packages: Package[] = [
     category: 'beach',
     image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944',
     gallery: [
-      'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944',
-      'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944',
-      'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944'
+      '/images/kerala1.jpg',
+      '/images/kerala2.jpg',
+      '/images/kerala3.jpg'
     ],
     highlights: [
       'Houseboat stay in Alleppey',
@@ -314,9 +314,9 @@ export const packages: Package[] = [
     category: 'mountain',
     image: '/manali.jpg',
     gallery: [
-      '/images/manali1.jpg',
-      '/images/manali2.jpg',
-      '/images/manali3.jpg'
+      '/images/man1.jpg',
+      '/images/man2.jpg',
+      '/images/man3.jpg'
     ],
     highlights: [
       'Solang Valley Adventure Sports',
@@ -409,9 +409,9 @@ export const packages: Package[] = [
     category: 'mountain',
     image: '/munnar.jpg',
     gallery: [
-      '/images/munnar1.jpg',
-      '/images/munnar2.jpg',
-      '/images/munnar3.jpg'
+      '/images/mun1.jpg',
+      '/images/mun2.jpg',
+      '/images/mun3.jpg'
     ],
     highlights: [
       'Visit tea plantations',
@@ -484,11 +484,6 @@ export const packages: Package[] = [
       'यात्रा बीमा'
     ]
   },
-
-
-
-
-
 
   {
     id: 'spiritual-varanasi',
