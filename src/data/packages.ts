@@ -1166,14 +1166,18 @@ export const packages: Package[] = [
       '/videos/gujarat1.mp4'
     ],
     highlights: [
-      'Beach hopping - Baga, Calangute, Anjuna',
-      'Water sports - parasailing, jet ski',
-      'Old Goa heritage tour',
+      'Cultural tours and heritage sites',
+      'Vibrant local markets',
+      'Traditional Gujarati cuisine',
+      'Folk dance and music performances',
+      'Visit to historic temples and forts'
     ],
     highlightsHi: [
-      'बीच होपिंग - बागा, कलंगुट, अंजुना',
-      'जल खेल - पैरासेलिंग, जेट स्की',
-      'पुरानी गोवा विरासत टूर',
+      'सांस्कृतिक पर्यटन और विरासत स्थल',
+      'जीवंत स्थानीय बाजार',
+      'पारंपरिक गुजराती व्यंजन',
+      'लोक नृत्य और संगीत प्रदर्शन',
+      'ऐतिहासिक मंदिरों और किलों की यात्रा'
     ],
     itinerary: [
       {
@@ -1336,7 +1340,7 @@ export const packages: Package[] = [
       '/images/manali3.jpg'
     ],
     videos: [
-      '/videos/madhya-pradesh1.mp4'
+      '/videos/mp1.mp4'
     ],
     highlights: [
       'Visit to Khajuraho Temples',
@@ -1416,7 +1420,7 @@ export const packages: Package[] = [
       '/images/Darjeeling3.jpg'
     ],
     videos: [
-      '/videos/Darjeeling1.mp4'
+      '/videos/darj1.mp4'
     ],
     highlights: [
       'Visit to Tiger Hill for sunrise',
@@ -1500,7 +1504,7 @@ export const packages: Package[] = [
       '/images/Ooty3.jpg'
     ],
     videos: [
-      '/videos/Ooty1.mp4'
+      '/videos/ooty1.mp4'
     ],
     highlights: [
       'ooty Hill for sunrise',

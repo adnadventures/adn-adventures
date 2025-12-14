@@ -70,14 +70,9 @@ export const PackageDetails = () => {
             // muted
             // controls
             className={`absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 ${(
-              pkg.videos[currentImageIndex] == '/videos/rr1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/man1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/mun1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/var1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/waya1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/trek1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/goa1.mp4'
-            ) ? 'w-full' : '-rotate-90 w-[70%]'} h-auto object-contain`}
+              pkg.videos[currentImageIndex] == '/videos/kp1.mp4' ||
+              pkg.videos[currentImageIndex] == '/videos/kerala1.mp4'
+            ) ? '-rotate-90 w-[70%]' : 'w-full'} h-auto object-contain`}
           />
 
           {/* <img
