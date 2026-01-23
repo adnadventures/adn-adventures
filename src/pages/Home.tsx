@@ -13,12 +13,25 @@ export const Home = () => {
 
   const [showBooking, setShowBooking] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowBooking(prev => (prev ? prev : true));
-    }, 10000);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     setShowBooking(prev => (prev ? prev : true));
+  //   }, 10000);
 
-    return () => clearInterval(interval);
+  //   return () => clearInterval(interval);
+  // }, []);
+
+  useEffect(() => {
+    const alreadyShown = sessionStorage.getItem("bookingShown");
+
+    if (alreadyShown) return;
+
+    const timer = setTimeout(() => {
+      setShowBooking(true);
+      sessionStorage.setItem("bookingShown", "true");
+    }, 30000);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const features = [
