@@ -5,9 +5,21 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, MapPin, Users, Award, Shield, Calendar, Star } from 'lucide-react';
 import { packages } from '@/data/packages';
 import { TESTIMONIALS } from '@/data/testimonials';
+import { useEffect, useState } from 'react';
+import { BookingForm } from '@/components/BookingForm';
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
+
+  const [showBooking, setShowBooking] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowBooking(prev => (prev ? prev : true));
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const features = [
     {
@@ -327,6 +339,15 @@ export const Home = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* ================= BOOKING POPUP ================= */}
+      {showBooking && (
+        <BookingForm
+          packageId="default"
+          packageTitle="Custom Tour Package"
+          onClose={() => setShowBooking(false)}
+        />
+      )}
     </div>
   );
 };
