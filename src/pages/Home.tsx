@@ -7,9 +7,32 @@ import { packages } from '@/data/packages';
 import { TESTIMONIALS } from '@/data/testimonials';
 import { useEffect, useState } from 'react';
 import { BookingForm } from '@/components/BookingForm';
+import { supabase } from '@/lib/supabase';
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
+
+  const [topReviews, setTopReviews] = useState<any[]>([]);
+  const [loadingReviews, setLoadingReviews] = useState(true);
+
+  useEffect(() => {
+    const fetchTopReviews = async () => {
+      const { data, error } = await supabase
+        .from("reviews")
+        .select("id, name, comment, rating, images, created_at")
+        .order("rating", { ascending: false })
+        .order("created_at", { ascending: false })
+        .limit(3);
+
+      if (!error) {
+        setTopReviews(data || []);
+      }
+
+      setLoadingReviews(false);
+    };
+
+    fetchTopReviews();
+  }, []);
 
   const [showBooking, setShowBooking] = useState(false);
 
@@ -271,12 +294,11 @@ export const Home = () => {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredTestimonials.map((testimonial) => (
+            {/* {featuredTestimonials.map((testimonial) => (
               <div
                 key={testimonial.id}
                 className="p-8 bg-background border border-border rounded-xl hover:border-accent transition-all duration-300 hover:shadow-lg"
               >
-                {/* Rating */}
                 <div className="flex gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -286,10 +308,8 @@ export const Home = () => {
                   ))}
                 </div>
 
-                {/* Text */}
                 <p className="text-foreground mb-6 leading-relaxed">"{testimonial.text}"</p>
 
-                {/* Author */}
                 <div className="flex items-center gap-3 pt-4 border-t border-border">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex-shrink-0">
                     <img
@@ -306,7 +326,64 @@ export const Home = () => {
                   </div>
                 </div>
               </div>
-            ))}
+            ))} */}
+
+            {loadingReviews ? (
+              <p className="text-center col-span-full text-muted-foreground">
+                Loading reviews...
+              </p>
+            ) : topReviews.length === 0 ? (
+              <p className="text-center col-span-full text-muted-foreground">
+                No reviews yet ⭐
+              </p>
+            ) : (
+              topReviews.map((review) => (
+                <div
+                  key={review.id}
+                  className="p-8 bg-background border border-border rounded-xl hover:border-accent transition-all duration-300 hover:shadow-lg"
+                >
+                  {/* Rating */}
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star
+                        key={i}
+                        className={`w-5 h-5 ${i < review.rating
+                            ? "fill-accent text-accent"
+                            : "text-border"
+                          }`}
+                      />
+                    ))}
+                  </div>
+
+                  {/* Comment */}
+                  <p className="text-foreground mb-6 leading-relaxed">
+                    "{review.comment}"
+                  </p>
+
+                  {/* Images (optional) */}
+                  {review.images?.length > 0 && (
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      {review.images.slice(0, 3).map((img: string) => (
+                        <img
+                          key={img}
+                          src={img}
+                          alt="review"
+                          className="h-20 w-full object-cover rounded-lg"
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Author */}
+                  <div className="pt-4 border-t border-border">
+                    <p className="font-semibold text-foreground">{review.name}</p>
+                    <p className="text-sm text-muted-foreground">
+                      Verified Traveller
+                    </p>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           {/* <div className="mt-12 p-8 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5 border border-border rounded-xl text-center">
