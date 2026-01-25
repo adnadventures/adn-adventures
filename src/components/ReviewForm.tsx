@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star } from "lucide-react";
+import { Star, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -71,8 +71,7 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
       setImages([]);
 
       onSuccess?.();
-
-    } catch (err) {
+    } catch {
       toast({ title: "Failed to submit review ❌" });
     } finally {
       setLoading(false);
@@ -91,35 +90,50 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         {[1, 2, 3, 4, 5].map((star) => (
           <Star
             key={star}
-            className={`w-16 h-16 cursor-pointer ${star <= rating
+            className={`w-16 h-16 cursor-pointer ${
+              star <= rating
                 ? "fill-yellow-400 text-yellow-400"
                 : "text-muted-foreground"
-              }`}
+            }`}
             onClick={() => setRating(star)}
           />
         ))}
       </div>
 
-      {/* Images */}
+      {/* Images (MODIFIED ONLY HERE) */}
       <div className="space-y-2 w-full">
         <label className="text-sm font-semibold text-gray-700">
           Add photos to your review
         </label>
 
         <label className="block w-full cursor-pointer">
-          <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6
-                    text-center hover:border-blue-500 transition
-                    flex flex-col items-center justify-center gap-2">
-
-            <span className="text-2xl sm:text-3xl">📸</span>
+          <div
+            className="border-2 border-dashed border-gray-300 rounded-xl
+            p-4 sm:p-6 hover:border-blue-500 transition
+            flex flex-col items-center justify-center gap-3"
+          >
+            <Camera className="h-8 w-8 text-gray-500" />
 
             <p className="text-sm sm:text-base text-gray-600">
               Tap anywhere to upload images
             </p>
 
-            <p className="text-xs sm:text-sm text-gray-400">
-             
-            </p>
+            {images.length > 0 && (
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 w-full mt-3">
+                {images.map((file, index) => (
+                  <div
+                    key={index}
+                    className="aspect-square rounded-lg overflow-hidden border"
+                  >
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt="preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <Input
@@ -127,7 +141,7 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             accept="image/*"
             multiple
             onChange={handleImageChange}
-            // className="hidden"
+            className="hidden"
           />
         </label>
       </div>
@@ -140,8 +154,6 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         required
       />
 
-
-
       {/* Comment */}
       <Textarea
         placeholder="Share your experience..."
@@ -151,15 +163,8 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         required
       />
 
-
-
-
       {/* Submit */}
-      <Button
-        type="submit"
-        className="w-full"
-        disabled={loading}
-      >
+      <Button type="submit" className="w-full" disabled={loading}>
         {loading ? "Submitting..." : "Submit Review"}
       </Button>
     </form>
