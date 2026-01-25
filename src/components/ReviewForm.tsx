@@ -127,7 +127,7 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
             accept="image/*"
             multiple
             onChange={handleImageChange}
-            className="hidden"
+            // className="hidden"
           />
         </label>
       </div>
