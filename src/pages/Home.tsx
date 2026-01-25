@@ -277,114 +277,83 @@ export const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-card border-t border-border">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
-              {t('testimonials.title')}
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              {t('testimonials.subtitle')}
-            </p>
-          </motion.div>
+<section className="py-16 px-4 sm:px-6 lg:px-8 bg-card border-t border-border">
+  <div className="max-w-7xl mx-auto">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="text-center mb-12"
+    >
+      <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+        {t('testimonials.title')}
+      </h2>
+      <p className="text-xl text-muted-foreground">
+        {t('testimonials.subtitle')}
+      </p>
+    </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* {featuredTestimonials.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className="p-8 bg-background border border-border rounded-xl hover:border-accent transition-all duration-300 hover:shadow-lg"
-              >
-                <div className="flex gap-1 mb-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {loadingReviews ? (
+        <p className="text-center col-span-full text-muted-foreground">
+          Loading reviews...
+        </p>
+      ) : topReviews.length === 0 ? (
+        <p className="text-center col-span-full text-muted-foreground">
+          No reviews yet ⭐
+        </p>
+      ) : (
+        topReviews.map((review) => {
+          // Fallback image
+          const imageSrc = review.images?.[0] || "/images/user-default.png";
+
+          return (
+            <div
+              key={review.id}
+              className="relative h-80 rounded-xl overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300"
+            >
+              {/* Customer Image */}
+              <img
+                src={imageSrc}
+                alt={review.name}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+
+              {/* Dark Overlay for readability */}
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition" />
+
+              {/* Overlay Content */}
+              <div className="relative z-10 flex flex-col justify-end h-full p-6 text-white">
+                {/* Rating */}
+                <div className="flex gap-1 mb-2">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-5 h-5 ${i < testimonial.rating ? "fill-accent text-accent" : "text-border"}`}
+                      className={`w-4 h-4 ${
+                        i < review.rating
+                          ? "fill-yellow-400 text-yellow-400"
+                          : "text-white/40"
+                      }`}
                     />
                   ))}
                 </div>
 
-                <p className="text-foreground mb-6 leading-relaxed">"{testimonial.text}"</p>
+                {/* Comment */}
+                <p className="text-sm md:text-base leading-relaxed mb-2 line-clamp-3">
+                  "{review.comment}"
+                </p>
 
-                <div className="flex items-center gap-3 pt-4 border-t border-border">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex-shrink-0">
-                    <img
-                      src={testimonial.image || "/placeholder.svg"}
-                      alt={testimonial.name}
-                      width={48}
-                      height={48}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.location}</p>
-                  </div>
-                </div>
+                {/* Author */}
+                <p className="text-sm font-semibold opacity-90">
+                  — {review.name}
+                </p>
               </div>
-            ))} */}
-
-            {loadingReviews ? (
-              <p className="text-center col-span-full text-muted-foreground">
-                Loading reviews...
-              </p>
-            ) : topReviews.length === 0 ? (
-              <p className="text-center col-span-full text-muted-foreground">
-                No reviews yet ⭐
-              </p>
-            ) : (
-              topReviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="p-8 bg-background border border-border rounded-xl hover:border-accent transition-all duration-300 hover:shadow-lg"
-                >
-                  {/* Rating */}
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-5 h-5 ${i < review.rating
-                            ? "fill-accent text-accent"
-                            : "text-border"
-                          }`}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Comment */}
-                  <p className="text-foreground mb-6 leading-relaxed">
-                    "{review.comment}"
-                  </p>
-
-                  {/* Images (optional) */}
-                  {review.images?.length > 0 && (
-                    <div className="grid grid-cols-3 gap-2 mb-4">
-                      {review.images.slice(0, 3).map((img: string) => (
-                        <img
-                          key={img}
-                          src={img}
-                          alt="review"
-                          className="h-20 w-full object-cover rounded-lg"
-                        />
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Author */}
-                  <div className="pt-4 border-t border-border">
-                    <p className="font-semibold text-foreground">{review.name}</p>
-                    <p className="text-sm text-muted-foreground">
-                      Verified Traveller
-                    </p>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+            </div>
+          );
+        })
+      )}
+    </div>
+  
 
           {/* <div className="mt-12 p-8 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5 border border-border rounded-xl text-center">
             <h3 className="text-xl font-semibold text-foreground mb-2">Google Reviews & Ratings</h3>

@@ -8,8 +8,8 @@ const ReviewPage = () => {
     const [reviews, setReviews] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
-     const { t } = useTranslation();
-     
+    const { t } = useTranslation();
+
     useEffect(() => {
         fetchReviews();
     }, []);
@@ -25,7 +25,17 @@ const ReviewPage = () => {
     };
 
     return (
-        <section className="py-16 px-4 max-w-7xl mx-auto">
+        <section
+            className="
+    w-full py-16
+    bg-gradient-to-br
+    from-background
+    via-[hsl(var(--primary)/0.10)]
+    to-background
+    dark:via-[hsl(var(--primary)/0.06)]
+  "
+        >
+
             <div className="text-center mb-12">
                 <h2 className="text-6xl font-bold text-foreground mb-4">
                     <span className="">{t('testimonials.title')}</span>
@@ -35,55 +45,70 @@ const ReviewPage = () => {
                 </p>
             </div>
 
+            {/* REVIEW FORM */}
+            <ReviewForm onSuccess={fetchReviews} />
+
             {/* REVIEWS LIST */}
             {loading ? (
                 <p className="text-center">Loading reviews...</p>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {reviews.map((review) => (
-                        <div
-                            key={review.id}
-                            className="p-8 bg-background border border-border rounded-xl hover:shadow-lg transition"
-                        >
-                            {/* Rating */}
-                            <div className="flex gap-1 mb-3">
-                                {[...Array(5)].map((_, i) => (
-                                    <Star
-                                        key={i}
-                                        className={`w-5 h-5 ${i < review.rating
-                                                ? "fill-accent text-accent"
-                                                : "text-border"
-                                            }`}
-                                    />
-                                ))}
-                            </div>
+                <div className="grid mt-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {reviews.map((review) => {
+                        const imageSrc =
+                            review.images?.length > 0
+                                ? review.images[0]
+                                : "/images/user-default.png";
 
-                            {/* Comment */}
-                            <p className="mb-4">"{review.comment}"</p>
+                        return (
+                            <div
+                                key={review.id}
+                                className="relative h-80 rounded-xl overflow-hidden group shadow-md border-2 border-border"
+                            >
+                                {/* Background Image */}
+                                <img
+                                    src={imageSrc}
+                                    alt="review"
+                                    className="absolute inset-0 w-full h-full object-cover"
+                                />
 
-                            {/* Images */}
-                            {review.images?.length > 0 && (
-                                <div className="grid grid-cols-3 gap-2 mb-4">
-                                    {review.images.map((img: string) => (
-                                        <img
-                                            key={img}
-                                            src={img}
-                                            alt="review"
-                                            className="h-24 w-full object-cover rounded-lg"
-                                        />
-                                    ))}
+                                {/* Overlay */}
+                                <div className="absolute inset-0 bg-black/55 group-hover:bg-black/65 transition" />
+
+                                {/* Content Overlay */}
+                                <div className="relative z-10 h-full flex flex-col justify-end p-5 text-white">
+
+                                    {/* Rating */}
+                                    <div className="flex gap-1 mb-2">
+                                        {[...Array(5)].map((_, i) => (
+                                            <Star
+                                                key={i}
+                                                className={`w-4 h-4 ${i < review.rating
+                                                    ? "fill-yellow-400 text-yellow-400"
+                                                    : "text-white/40"
+                                                    }`}
+                                            />
+                                        ))}
+                                    </div>
+
+                                    {/* Comment */}
+                                    <p className="text-sm leading-relaxed line-clamp-3 mb-2">
+                                        “{review.comment}”
+                                    </p>
+
+                                    {/* Name */}
+                                    <p className="text-sm font-semibold opacity-90">
+                                        — {review.name}
+                                    </p>
                                 </div>
-                            )}
-
-                            {/* Name */}
-                            <p className="font-semibold">{review.name}</p>
-                        </div>
-                    ))}
+                            </div>
+                        );
+                    })}
                 </div>
             )}
 
-            {/* REVIEW FORM */}
-            <ReviewForm onSuccess={fetchReviews} />
+
+
+
         </section>
     );
 };

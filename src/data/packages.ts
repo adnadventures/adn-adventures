@@ -1739,9 +1739,9 @@ export const packages: Package[] = [
     titleHi: 'आरुपदाई वीडू यात्रा',
     description: 'Explore the beautiful Aarupadai Veedu, a sacred place in Tamil Nadu',
     descriptionHi: 'तमिलनाडु में एक पवित्र स्थान, आरुपदाई वीडू का अन्वेषण करें',
-    price: 2999,
-    duration: 2,
-    category: 'cultural',
+    price: 4999,
+    duration: 5,
+    category: 'spiritual',
     image: '/aarupadai.jpg',
     gallery: [
       '/images/aarupadai1.jpg',
@@ -1773,6 +1773,27 @@ export const packages: Package[] = [
         titleHi: 'आरुपदाई वीडू यात्रा',
         description: 'Visit the temple and explore the sacred site and surrounding area',
         descriptionHi: 'मंदिर की यात्रा करें और पवित्र स्थल और परिसर का अन्वेषण करें'
+      },
+      {
+        day: 3,
+        title: 'Aarupadai Veedu Tour',
+        titleHi: 'आरुपदाई वीडू यात्रा', 
+        description: 'Visit the temple and explore the sacred site and surrounding area',
+        descriptionHi: 'मंदिर की यात्रा करें और पवित्र स्थल और परिसर का अन्वेषण करें'
+      },
+      {
+        day: 4,
+        title: 'Aarupadai Veedu Tour',
+        titleHi: 'आरुपदाई वीडू यात्रा',
+        description: 'Visit the temple and explore the sacred site and surrounding area',
+        descriptionHi: 'मंदिर की यात्रा करें और पवित्र स्थल और परिसर का अन्वेषण करें'
+      },
+      {
+        day: 5,
+        title: 'Departure from Aarupadai Veedu',
+        titleHi: 'आरुपदाई वीडू से प्रस्थान',
+        description: 'Check out from hotel and transfer to airport or next destination',
+        descriptionHi: 'होटल से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
       }
     ],
     included: [

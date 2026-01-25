@@ -71,7 +71,7 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
       setImages([]);
 
       onSuccess?.();
-      
+
     } catch (err) {
       toast({ title: "Failed to submit review ❌" });
     } finally {
@@ -86,6 +86,52 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     >
       <h2 className="text-2xl font-bold text-center">Write a Review</h2>
 
+      {/* Rating */}
+      <div className="flex gap-2 justify-center">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star
+            key={star}
+            className={`w-16 h-16 cursor-pointer ${star <= rating
+                ? "fill-yellow-400 text-yellow-400"
+                : "text-muted-foreground"
+              }`}
+            onClick={() => setRating(star)}
+          />
+        ))}
+      </div>
+
+      {/* Images */}
+      <div className="space-y-2 w-full">
+        <label className="text-sm font-semibold text-gray-700">
+          Add photos to your review
+        </label>
+
+        <label className="block w-full cursor-pointer">
+          <div className="border-2 border-dashed border-gray-300 rounded-xl p-4 sm:p-6
+                    text-center hover:border-blue-500 transition
+                    flex flex-col items-center justify-center gap-2">
+
+            <span className="text-2xl sm:text-3xl">📸</span>
+
+            <p className="text-sm sm:text-base text-gray-600">
+              Tap anywhere to upload images
+            </p>
+
+            <p className="text-xs sm:text-sm text-gray-400">
+             
+            </p>
+          </div>
+
+          <Input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            className="hidden"
+          />
+        </label>
+      </div>
+
       {/* Name */}
       <Input
         placeholder="Your name"
@@ -94,20 +140,7 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         required
       />
 
-      {/* Rating */}
-      <div className="flex gap-2 justify-center">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Star
-            key={star}
-            className={`w-7 h-7 cursor-pointer ${
-              star <= rating
-                ? "fill-yellow-400 text-yellow-400"
-                : "text-muted-foreground"
-            }`}
-            onClick={() => setRating(star)}
-          />
-        ))}
-      </div>
+
 
       {/* Comment */}
       <Textarea
@@ -118,13 +151,8 @@ export const ReviewForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         required
       />
 
-      {/* Images */}
-      <Input
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={handleImageChange}
-      />
+
+
 
       {/* Submit */}
       <Button
