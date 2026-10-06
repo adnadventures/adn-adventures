@@ -29,7 +29,7 @@ export interface Package {
 export const packages: Package[] = [
   {
     id: 'kashmir-paradise',
-    title: 'Kashmir Paradise',
+    title: 'kashmir paradise',
     titleHi: 'कश्मीर स्वर्ग',
     description: 'Experience the breathtaking beauty of Kashmir with snow-capped mountains, pristine lakes, and Mughal gardens',
     descriptionHi: 'बर्फ से ढके पहाड़ों, प्राचीन झीलों और मुगल उद्यानों के साथ कश्मीर की लुभावनी सुंदरता का अनुभव करें',
@@ -41,7 +41,8 @@ export const packages: Package[] = [
     gallery: [
       '/images/kp1.jpg',
       '/images/kp2.jpg',
-      '/images/kp3.jpg'
+      '/images/kp3.jpg',
+      
     ],
     videos: [
       '/videos/kp1.mp4'
