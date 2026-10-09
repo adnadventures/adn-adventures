@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Moon, Sun, Globe, Menu, X } from 'lucide-react';
@@ -12,15 +12,32 @@ export const Header = () => {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+
+      if (currentScrollY <= 50 || isMobileMenuOpen) {
+        setIsVisible(true);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      const scrollDifference = currentScrollY - lastScrollY.current;
+      if (Math.abs(scrollDifference) > 8) {
+        setIsVisible(scrollDifference < 0);
+        lastScrollY.current = currentScrollY;
+      }
     };
+
+    lastScrollY.current = window.scrollY;
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMobileMenuOpen]);
 
   const toggleLanguage = () => {
     const newLang = i18n.language === 'en' ? 'hi' : 'en';
@@ -39,7 +56,8 @@ export const Header = () => {
   return (
     <motion.header
       initial={{ y: -100 }}
-      animate={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -140 }}
+      transition={{ duration: 0.25, ease: 'easeInOut' }}
       className="fixed inset-x-0 top-4 z-50 flex justify-center px-3"
     >
       <div
@@ -115,7 +133,10 @@ export const Header = () => {
               variant="ghost"
               size="icon"
               className="lg:hidden rounded-full"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => {
+                setIsVisible(true);
+                setIsMobileMenuOpen(!isMobileMenuOpen);
+              }}
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (

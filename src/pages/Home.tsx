@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star } from 'lucide-react';
+import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star, Headset } from 'lucide-react';
 import { packages } from '@/data/packages';
 import { TESTIMONIALS } from '@/data/testimonials';
 import { useEffect, useRef, useState } from 'react';
@@ -134,21 +134,32 @@ export const Home = () => {
       title: 'Premium Service',
       titleHi: 'प्रीमियम सेवा',
       description: 'Thoughtful support, tailored to your trip',
-      descriptionHi: 'आपकी यात्रा के अनुसार व्यक्तिगत सहायता'
+      descriptionHi: 'आपकी यात्रा के अनुसार व्यक्तिगत सहायता',
+      image: 'https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=900&q=80'
     },
     {
       icon: ShieldCheck,
       title: 'Safe Travel',
       titleHi: 'सुरक्षित यात्रा',
       description: 'Reliable planning and support at every step',
-      descriptionHi: 'हर कदम पर भरोसेमंद योजना और सहायता'
+      descriptionHi: 'हर कदम पर भरोसेमंद योजना और सहायता',
+      image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=80'
     },
     {
       icon: Plane,
       title: 'Visa Support',
       titleHi: 'वीज़ा सहायता',
       description: 'Guidance to help make travel preparation easier',
-      descriptionHi: 'यात्रा की तैयारी को आसान बनाने के लिए मार्गदर्शन'
+      descriptionHi: 'यात्रा की तैयारी को आसान बनाने के लिए मार्गदर्शन',
+      image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=900&q=80'
+    },
+    {
+      icon: Headset,
+      title: '24/7 Support',
+      titleHi: '24/7 सहायता',
+      description: "We're here to help, whenever you need us",
+      descriptionHi: 'जब भी आपको ज़रूरत हो, हम सहायता के लिए मौजूद हैं',
+      image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=80'
     }
   ];
 
@@ -258,7 +269,7 @@ export const Home = () => {
               <CustomerCount isHindi={i18n.language !== 'en'} />
             </motion.div>
 
-            <div className="grid grid-cols-1 divide-y divide-primary/20 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
               {trustFeatures.map((feature, index) => (
                 <motion.div
                   key={feature.title}
@@ -266,19 +277,28 @@ export const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className={`group py-5 sm:px-5 sm:py-4 lg:px-7 ${
-                    index === 1 ? 'sm:border-l sm:border-primary/20 lg:border-l-0' : ''
-                  } ${index === 2 ? 'sm:col-span-2 sm:border-t sm:border-primary/20 lg:col-span-1 lg:border-l lg:border-t-0 lg:border-primary/20' : ''}`}
+                  className="group relative isolate overflow-hidden rounded-2xl border border-primary/15 bg-card/70 p-5 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-6 lg:p-7"
                 >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 transition-all duration-300 group-hover:rotate-[-6deg] group-hover:bg-primary/20 sm:mb-5 sm:h-12 sm:w-12 sm:rounded-2xl">
-                    <feature.icon className="h-6 w-6 text-primary" strokeWidth={1.7} />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 z-0 bg-cover bg-center opacity-[0.24] transition-opacity duration-300 group-hover:opacity-[0.30]"
+                    style={{ backgroundImage: `url("${feature.image}")` }}
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 z-10 bg-gradient-to-br from-background/65 via-background/80 to-background/95"
+                  />
+                  <div className="relative z-20">
+                    <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 transition-all duration-300 group-hover:rotate-[-6deg] group-hover:bg-primary/20 sm:mb-5 sm:h-12 sm:w-12 sm:rounded-2xl">
+                      <feature.icon className="h-6 w-6 text-primary" strokeWidth={1.7} />
+                    </div>
+                    <h3 className="mb-2 font-display text-lg font-semibold sm:text-xl">
+                      {i18n.language === 'en' ? feature.title : feature.titleHi}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {i18n.language === 'en' ? feature.description : feature.descriptionHi}
+                    </p>
                   </div>
-                  <h3 className="mb-2 font-display text-lg font-semibold sm:text-xl">
-                    {i18n.language === 'en' ? feature.title : feature.titleHi}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {i18n.language === 'en' ? feature.description : feature.descriptionHi}
-                  </p>
                 </motion.div>
               ))}
             </div>
