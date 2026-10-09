@@ -32,13 +32,29 @@
     "viewDetails": "View Details"
   },
   "booking": {
-    "title": "Book Your Adventure",
+    "title": "Book Your Dream Tour Today!",
     "name": "Full Name",
     "email": "Email Address",
     "phone": "Phone Number",
+    "whatsapp": "WhatsApp Number",
+    "cityOfResidence": "City of Residence",
+    "travelDestination": "Travel Destination",
     "date": "Preferred Travel Date",
     "guests": "Number of Guests",
+    "people": "No. of People",
     "package": "Select Package",
+    "vacationType": "Vacation Type",
+    "vacationTypes": {
+      "domestic": "Domestic Packages",
+      "international": "International Packages",
+      "honeymoon": "Honeymoon Packages",
+      "iv": "IV Packages",
+      "spiritualHeritage": "Spiritual and Heritage"
+    },
+    "whatsappDraft": {
+      "title": "New tour enquiry"
+    },
+    "bookNow": "Book Now!",
     "message": "Special Requests (Optional)",
     "submit": "Submit Booking",
     "success": "Booking submitted successfully! We'll contact you soon.",
@@ -87,6 +103,18 @@
     "message": "Your Message",
     "submit": "Send Message",
     "success": "Message sent successfully! We'll get back to you soon.",
-    "error": "Failed to send message. Please try again."
+    "error": "Failed to send message. Please try again.",
+    "faqTitle": "Frequently Asked Questions",
+    "faqSubtitle": "Helpful answers to plan your trip with confidence.",
+    "faq1Question": "How do I book a tour package?",
+    "faq1Answer": "Choose a package and send us an enquiry using the contact form. Our team will follow up to discuss availability and next steps.",
+    "faq2Question": "Can I customize a tour itinerary?",
+    "faq2Answer": "Yes. Tell us your preferred destinations, dates, and interests in your enquiry, and our team can discuss a suitable itinerary with you.",
+    "faq3Question": "What is included in a tour package?",
+    "faq3Answer": "Inclusions vary by package. Check the package details for its itinerary and inclusions, or contact us if you need clarification.",
+    "faq4Question": "How can I confirm travel dates and availability?",
+    "faq4Answer": "Submit your preferred dates in the enquiry form. Our team will confirm availability and discuss the arrangements with you.",
+    "faq5Question": "How can I ask about payment or cancellation terms?",
+    "faq5Answer": "Payment and cancellation terms can vary by package. Contact our team with the package you are interested in so we can share the applicable details."
   }
 }

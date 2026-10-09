@@ -2,11 +2,12 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star, Headset, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star, Headset, Play, Pause, Volume2, VolumeX, Mail, Phone, MapPin } from 'lucide-react';
 import { packages } from '@/data/packages';
 import { TESTIMONIALS } from '@/data/testimonials';
 import { useEffect, useRef, useState } from 'react';
 import { BookingForm } from '@/components/BookingForm';
+import { ContactEnquiryForm } from '@/components/ContactEnquiryForm';
 import { supabase } from '@/lib/supabase';
 
 const ClientFeedbackCard = ({
@@ -112,6 +113,86 @@ const ClientFeedbackCard = ({
         </p>
       )}
     </motion.article>
+  );
+};
+
+const HomeContactSection = () => {
+  const { t } = useTranslation();
+  const contactSubtitle = t('contact.subtitle', { defaultValue: t('contact.description') });
+
+  return (
+    <section className="relative isolate overflow-hidden bg-muted/40 px-4 py-14 sm:px-6 sm:py-20 lg:px-8">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.12]"
+        style={{ backgroundImage: `url("${heroImages[0].image}")` }}
+      />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-background/80" />
+      <div className="relative z-10 mx-auto grid max-w-7xl gap-8 lg:grid-cols-2 lg:gap-14">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="flex flex-col justify-center"
+        >
+          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
+            {t('contact.enquireNow')}
+          </p>
+          <h2 className="mb-3 text-3xl font-display font-bold sm:text-4xl md:text-5xl">
+            {t('contact.title')}
+          </h2>
+          <p className="mb-8 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            {contactSubtitle}
+          </p>
+
+          <div className="space-y-5">
+            <a
+              href="tel:+918098594364"
+              className="group flex items-center gap-4 py-2 transition-colors"
+            >
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+                <Phone className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span>
+                <span className="block text-sm text-muted-foreground">{t('footer.phone')}</span>
+                <span className="font-semibold">+91 80985 94364</span>
+              </span>
+            </a>
+            <a
+              href="mailto:info@adnadventures.com"
+              className="group flex items-center gap-4 py-2 transition-colors"
+            >
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
+                <Mail className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span>
+                <span className="block text-sm text-muted-foreground">{t('footer.email')}</span>
+                <span className="break-all font-semibold">info@adnadventures.com</span>
+              </span>
+            </a>
+            <div className="flex items-center gap-4 py-2">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <MapPin className="h-5 w-5" aria-hidden="true" />
+              </span>
+              <span>
+                <span className="block text-sm text-muted-foreground">{t('footer.address')}</span>
+                <span className="font-semibold">Puducherry, India</span>
+              </span>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="rounded-3xl border border-primary/20 bg-card/75 p-5 shadow-xl shadow-primary/5 backdrop-blur-xl sm:p-8"
+        >
+          <h3 className="mb-5 text-xl font-display font-semibold sm:text-2xl">{contactSubtitle}</h3>
+          <ContactEnquiryForm />
+        </motion.div>
+      </div>
+    </section>
   );
 };
 
@@ -708,6 +789,8 @@ export const Home = () => {
           </div>
         </div>
       </section>
+
+      <HomeContactSection />
 
       {/* ================= BOOKING POPUP ================= */}
       {showBooking && (

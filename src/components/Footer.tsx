@@ -12,38 +12,50 @@ export const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <footer className="bg-card border-t border-border">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="relative isolate overflow-hidden border-t border-primary bg-primary/90 text-primary-foreground backdrop-blur-2xl">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-cover bg-center opacity-[0.12]"
+        style={{
+          backgroundImage:
+            'url("https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=2000&q=80")',
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-primary/75"
+      />
+      <div className="container mx-auto px-4 py-10 sm:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About */}
           <div>
             <h3 className="text-lg font-display font-bold mb-4 text-primary">
               ADN Adventures
             </h3>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="mb-4 text-sm text-primary-foreground/80">
               {t('footer.aboutText')}
             </p>
             <div className="flex space-x-3">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-foreground/10 transition-colors hover:bg-primary-foreground/20"
                 aria-label="Facebook"
               >
-                <Facebook className="h-5 w-5 text-primary" />
+                <Facebook className="h-5 w-5 text-primary-foreground" />
               </a>
               <a
                 href="https://www.instagram.com/_adnadventures_"
-                className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-foreground/10 transition-colors hover:bg-primary-foreground/20"
                 aria-label="Instagram"
               >
-                <Instagram className="h-5 w-5 text-primary" />
+                <Instagram className="h-5 w-5 text-primary-foreground" />
               </a>
               <a
                 href="https://whatsapp.com/channel/0029Vb8i7sSDzgTJXmD6sT2c"
-                className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center hover:bg-primary/20 transition-colors"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-foreground/10 transition-colors hover:bg-primary-foreground/20"
                 aria-label="WhatsApp"
               >
-                <Whatsapp className="h-5 w-5 text-primary" />
+                <Whatsapp className="h-5 w-5 text-primary-foreground" />
               </a>
               
             </div>
@@ -51,14 +63,14 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-display font-semibold mb-4">
+            <h3 className="mb-4 text-lg font-display font-semibold text-primary-foreground">
               {t('footer.quickLinks')}
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   to="/"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   {t('nav.home')}
                 </Link>
@@ -66,7 +78,7 @@ export const Footer = () => {
               <li>
                 <Link
                   to="/packages"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   {t('nav.packages')}
                 </Link>
@@ -74,7 +86,7 @@ export const Footer = () => {
               <li>
                 <Link
                   to="/gallery"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   {t('nav.gallery')}
                 </Link>
@@ -82,7 +94,7 @@ export const Footer = () => {
               <li>
                 <Link
                   to="/testimonials"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   {t('nav.testimonials')}
                 </Link>
@@ -90,7 +102,7 @@ export const Footer = () => {
               <li>
                 <Link
                   to="/contact"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   {t('nav.contact')}
                 </Link>
@@ -98,7 +110,7 @@ export const Footer = () => {
               <li>
                 <Link
                   to="/terms"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   {t('nav.terms')}
                 </Link>
@@ -108,32 +120,32 @@ export const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-display font-semibold mb-4">
+            <h3 className="mb-4 text-lg font-display font-semibold text-primary-foreground">
               {t('footer.contact')}
             </h3>
             <ul className="space-y-3">
               <li className="flex items-start space-x-3">
-                <Mail className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <Mail className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary-foreground" />
                 <a
                   href="mailto:info@adnadventures.com"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   info@adnadventures.com
                 </a>
               </li>
               <li className="flex items-start space-x-3">
-                <Phone className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                <Phone className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary-foreground" />
                 <a
                   href="tel:+918248468334"
-                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
                   +91 80985 94364
                 </a>
               </li>
               <li className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">
-                  Chennai, India
+                <MapPin className="mt-0.5 h-5 w-5 flex-shrink-0 text-primary-foreground" />
+                <span className="text-sm text-primary-foreground/80">
+                  Puducherry, India
                 </span>
               </li>
             </ul>
@@ -141,37 +153,37 @@ export const Footer = () => {
 
           {/* Newsletter */}
           <div>
-            <h3 className="text-lg font-display font-semibold mb-4">
+            <h3 className="mb-4 text-lg font-display font-semibold text-primary-foreground">
               Newsletter
             </h3>
-            <p className="text-sm text-muted-foreground mb-4">
+            <p className="mb-4 text-sm text-primary-foreground/80">
               Subscribe to get special offers and travel tips
             </p>
             <div className="w-full flex space-x-2">
               <input
                 type="email"
                 placeholder="Your email"
-                className="w-full px-4 py-2 text-sm rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full rounded-lg border border-primary-foreground/20 bg-background/70 px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary-foreground"
               />
-              <button className="w-24 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:opacity-90 transition-opacity">
+              <button className="w-24 rounded-lg bg-primary-foreground px-4 py-2 text-sm font-medium text-primary transition-opacity hover:opacity-90">
                 Subscribe
               </button>
             </div>
           </div>
         </div>
 
-        <div className="border-t border-border mt-8 pt-8 text-center">
+        <div className="mt-8 border-t border-primary-foreground/25 pt-8 text-center">
           <div className="space-y-3">
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-primary-foreground/80">
               © {new Date().getFullYear()} ADN Adventures. {t('footer.rights')}
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-primary-foreground/75">
               Designed and Developed by{' '}
               <a
                 href="https://www.techgajana.org/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-semibold text-[orange] hover:underline transition-colors"
+                className="font-semibold text-primary-foreground hover:underline transition-colors"
               >
                 TechGajana Digital Solutions
               </a>
