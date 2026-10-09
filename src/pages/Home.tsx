@@ -2,12 +2,118 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star, Headset } from 'lucide-react';
+import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star, Headset, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { packages } from '@/data/packages';
 import { TESTIMONIALS } from '@/data/testimonials';
 import { useEffect, useRef, useState } from 'react';
 import { BookingForm } from '@/components/BookingForm';
 import { supabase } from '@/lib/supabase';
+
+const ClientFeedbackCard = ({
+  src,
+  label,
+  playLabel,
+  pauseLabel,
+  enableAudioLabel,
+  muteAudioLabel,
+  errorLabel,
+}: {
+  src: string;
+  label: string;
+  playLabel: string;
+  pauseLabel: string;
+  enableAudioLabel: string;
+  muteAudioLabel: string;
+  errorLabel: string;
+}) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [hasPlaybackError, setHasPlaybackError] = useState(false);
+
+  const playVideo = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    void video.play().then(() => {
+      setHasPlaybackError(false);
+      setIsPlaying(true);
+    }).catch((error: unknown) => {
+      if (error instanceof DOMException && error.name === 'AbortError') return;
+      console.error(`Unable to play client feedback video: ${src}`, error);
+      setHasPlaybackError(true);
+    });
+  };
+
+  const toggleAudio = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const muted = !isMuted;
+    video.muted = muted;
+    setIsMuted(muted);
+    if (!muted && video.paused) playVideo();
+  };
+
+  const pauseVideo = () => {
+    videoRef.current?.pause();
+    setIsPlaying(false);
+  };
+
+  return (
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
+      onMouseEnter={playVideo}
+      onMouseLeave={pauseVideo}
+      className="group relative mx-auto aspect-[9/16] w-full max-w-[300px] overflow-hidden rounded-3xl border border-primary/30 bg-card shadow-xl shadow-primary/10 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20 sm:max-w-sm"
+    >
+      <video
+        ref={videoRef}
+        src={src}
+        className="h-full w-full object-cover"
+        muted={isMuted}
+        loop
+        playsInline
+        preload="metadata"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+        onError={() => setHasPlaybackError(true)}
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/10" />
+      <span className="absolute left-4 top-4 rounded-full border border-white/30 bg-black/35 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+        {label}
+      </span>
+      <button
+        type="button"
+        onClick={isPlaying ? pauseVideo : playVideo}
+        aria-label={isPlaying ? pauseLabel : playLabel}
+        className="absolute inset-0 flex items-center justify-center text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        <span className="flex h-16 w-16 items-center justify-center rounded-full border border-white/60 bg-black/35 shadow-lg backdrop-blur-sm transition-transform group-hover:scale-110">
+          {isPlaying
+            ? <Pause className="h-7 w-7 fill-current" />
+            : <Play className="ml-1 h-7 w-7 fill-current" />}
+        </span>
+      </button>
+      <button
+        type="button"
+        onClick={toggleAudio}
+        aria-label={isMuted ? enableAudioLabel : muteAudioLabel}
+        className="absolute bottom-4 right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/60 bg-black/40 text-white shadow-lg backdrop-blur-sm transition-colors hover:bg-black/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+      >
+        {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume2 className="h-5 w-5" />}
+      </button>
+      {hasPlaybackError && (
+        <p role="status" className="absolute inset-x-3 bottom-4 rounded-lg bg-black/70 p-3 text-center text-sm text-white">
+          {errorLabel}
+        </p>
+      )}
+    </motion.article>
+  );
+};
 
 const CustomerCount = ({ isHindi }: { isHindi: boolean }) => {
   const countRef = useRef<HTMLDivElement>(null);
@@ -35,10 +141,10 @@ const CustomerCount = ({ isHindi }: { isHindi: boolean }) => {
         {isHindi ? 'आपका भरोसा, हमारी पहचान' : 'Trusted by travelers'}
       </p>
       <div className="flex items-baseline justify-center font-display font-bold leading-none tracking-tight text-foreground lg:justify-start">
-        <motion.span className="text-6xl text-primary min-[380px]:text-7xl sm:text-8xl md:text-9xl">
+        <motion.span className="text-5xl text-primary min-[380px]:text-6xl sm:text-8xl md:text-9xl">
           {roundedCount}
         </motion.span>
-        <span className="text-4xl text-primary min-[380px]:text-5xl sm:text-6xl md:text-7xl">+</span>
+        <span className="text-3xl text-primary min-[380px]:text-4xl sm:text-6xl md:text-7xl">+</span>
       </div>
       <p className="mt-3 text-base font-medium text-muted-foreground sm:text-lg">
         {isHindi ? 'संतुष्ट ग्राहक और बढ़ते हुए' : 'Happy customers '}
@@ -73,6 +179,7 @@ const heroImages = [
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
+  const shouldReduceMotion = useReducedMotion();
 
   const [topReviews, setTopReviews] = useState<any[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
@@ -163,13 +270,13 @@ export const Home = () => {
     }
   ];
 
-  const featuredPackages = packages.slice(0, 3);
+  const featuredPackages = packages.slice(0, 5);
   const featuredTestimonials = TESTIMONIALS.slice(0, 3);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-clip">
       {/* Hero Section */}
-      <section className="relative flex h-[100svh] min-h-[640px] items-center justify-center overflow-hidden">
+      <section className="relative flex h-[100svh] min-h-[600px] items-center justify-center overflow-hidden sm:min-h-[640px]">
         <div className="absolute inset-0 z-0 bg-slate-900">
           {heroImages.map((image, index) => (
             <motion.div
@@ -186,27 +293,27 @@ export const Home = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 pt-20 text-center">
+        <div className="relative z-10 container mx-auto px-4 pt-16 text-center sm:pt-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-primary sm:text-sm">
+            <p className="mb-4 text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-primary min-[380px]:text-xs min-[380px]:tracking-[0.28em] sm:mb-5 sm:text-sm sm:tracking-[0.35em]">
               {t('hero.subtitle')}
             </p>
-            <h1 className="mx-auto mb-6 max-w-5xl text-4xl font-display font-bold leading-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+            <h1 className="mx-auto mb-5 max-w-5xl break-words font-display text-3xl font-bold leading-tight text-white min-[380px]:text-4xl sm:mb-6 sm:text-6xl md:text-7xl lg:text-8xl">
               <span className="block">{t('hero.titleLine1')}</span>
               <span className="block">{t('hero.titleLine2')}</span>
             </h1>
-            <p className="mx-auto mb-9 max-w-3xl text-lg leading-relaxed text-white/90 md:text-2xl">
+            <p className="mx-auto mb-7 max-w-3xl text-base leading-relaxed text-white/90 sm:mb-9 sm:text-lg md:text-2xl">
               {t('hero.description')}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mx-auto flex w-full max-w-sm flex-col justify-center gap-3 sm:max-w-none sm:flex-row sm:gap-4">
               <Button
                 asChild
                 size="lg"
-                className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground shadow-[0_0_30px_hsl(var(--primary)/0.5)] hover:shadow-[0_0_40px_hsl(var(--primary)/0.7)] transition-all"
+                className="w-full px-6 py-5 text-base bg-primary text-primary-foreground shadow-[0_0_30px_hsl(var(--primary)/0.5)] transition-all hover:bg-primary/90 hover:shadow-[0_0_40px_hsl(var(--primary)/0.7)] sm:w-auto sm:px-8 sm:py-6 sm:text-lg"
               >
                 <Link to="/packages">
                   {t('hero.cta')} <ArrowRight className="ml-2" />
@@ -216,7 +323,7 @@ export const Home = () => {
                 asChild
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6 bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20"
+                className="w-full border-white/30 bg-white/10 px-6 py-5 text-base text-white backdrop-blur-sm hover:bg-white/20 sm:w-auto sm:px-8 sm:py-6 sm:text-lg"
               >
                 <Link to="/gallery">{t('hero.cta2')}</Link>
               </Button>
@@ -224,8 +331,8 @@ export const Home = () => {
           </motion.div>
         </div>
 
-        <div className="absolute bottom-8 left-8 z-10 flex items-center gap-3">
-          <span className="text-xs font-semibold uppercase tracking-wider text-white drop-shadow">
+        <div className="absolute bottom-5 left-4 z-10 flex max-w-[calc(100%-2rem)] flex-wrap items-center gap-2 sm:bottom-8 sm:left-8 sm:gap-3">
+          <span className="text-[0.65rem] font-semibold uppercase tracking-wider text-white drop-shadow sm:text-xs">
             {heroImages[activeHeroImage].destination}
           </span>
           {heroImages.map((image, index) => (
@@ -244,7 +351,7 @@ export const Home = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+          className="absolute bottom-5 left-1/2 z-10 hidden -translate-x-1/2 sm:bottom-8 sm:block"
         >
           <div className="w-6 h-10 border-2 border-white/50 rounded-full p-1">
             <motion.div
@@ -307,73 +414,80 @@ export const Home = () => {
       </section>
 
       {/* Featured Packages Section */}
-      <section className="py-20 bg-muted/30">
+      <section className="bg-muted/30 py-12 sm:py-20">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="mb-8 text-center sm:mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+            <h2 className="mb-3 text-3xl font-display font-bold sm:mb-4 sm:text-5xl">
               {t('packages.title')}
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-base text-muted-foreground sm:text-xl">
               {t('packages.subtitle')}
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredPackages.map((pkg, index) => (
-              <motion.div
-                key={pkg.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group"
-              >
-                <Link to={`/packages/${pkg.id}`}>
-                  <div className="bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                    <div className="relative h-64 overflow-hidden">
-                      <img
-                        src={pkg.image}
-                        alt={i18n.language === 'en' ? pkg.title : pkg.titleHi}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-                      <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                        {pkg.category}
-                      </div>
-                    </div>
-                    <div className="p-6">
-                      <h3 className="text-2xl font-display font-bold mb-2">
-                        {i18n.language === 'en' ? pkg.title : pkg.titleHi}
-                      </h3>
-                      <p className="text-muted-foreground mb-4 line-clamp-2">
-                        {i18n.language === 'en' ? pkg.description : pkg.descriptionHi}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          {/* <span className="text-sm text-muted-foreground">{t('packages.from')}</span> */}
-                          {/* <p className="text-2xl font-bold text-primary">
-                            ₹{pkg.price.toLocaleString()}
-                            {pkg.category}
-                          </p> */}
-                          <span className="flex px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold capitalize">
-                            <Calendar className="h-5 w-5 text-primary mr-3" />
-                            <span>{pkg.duration} days / {pkg.duration - 1} nights</span>
-                          </span>
-                        </div>
-                        <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                          {t('packages.viewDetails')}
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </div>
-                    </div>
+          <div
+            role="region"
+            aria-label={t('packages.title')}
+            className="overflow-hidden pb-6"
+          >
+            <div className="package-carousel-track flex w-max">
+                {[0, 1].map((copy) => (
+                  <div
+                    key={copy}
+                    aria-hidden={copy === 1}
+                    className="flex shrink-0 gap-8 pr-8"
+                  >
+                    {featuredPackages.map((pkg, index) => (
+                      <motion.div
+                        key={`${pkg.id}-${copy}`}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className="group w-[88vw] max-w-[380px] shrink-0 sm:w-[calc((100vw-4rem)/2)] sm:max-w-none lg:w-[calc((min(100vw,1280px)-8rem)/3)]"
+                      >
+                        <Link className="block h-full" to={`/packages/${pkg.id}`}>
+                          <div className="h-full bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                            <div className="relative h-48 overflow-hidden min-[380px]:h-56 sm:h-64">
+                              <img
+                                src={pkg.image}
+                                alt={i18n.language === 'en' ? pkg.title : pkg.titleHi}
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              />
+                              <div className="absolute top-4 right-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
+                                {pkg.category}
+                              </div>
+                            </div>
+                            <div className="p-4 sm:p-6">
+                              <h3 className="mb-2 text-xl font-display font-bold sm:text-2xl">
+                                {i18n.language === 'en' ? pkg.title : pkg.titleHi}
+                              </h3>
+                              <p className="mb-4 line-clamp-2 text-sm text-muted-foreground sm:text-base">
+                                {i18n.language === 'en' ? pkg.description : pkg.descriptionHi}
+                              </p>
+                              <div className="flex flex-col items-stretch gap-3 min-[420px]:flex-row min-[420px]:items-center min-[420px]:justify-between">
+                                <span className="flex w-fit items-center rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold capitalize text-primary sm:px-4 sm:text-sm">
+                                  <Calendar className="mr-2 h-4 w-4 shrink-0 text-primary sm:mr-3 sm:h-5 sm:w-5" />
+                                  <span>{pkg.duration} days / {pkg.duration - 1} nights</span>
+                                </span>
+                                <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 min-[420px]:w-auto">
+                                  {t('packages.viewDetails')}
+                                  <ArrowRight className="ml-2 h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    ))}
                   </div>
-                </Link>
-              </motion.div>
-            ))}
+                ))}
+            </div>
           </div>
 
           <div className="text-center mt-12">
@@ -387,23 +501,43 @@ export const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-<section className="py-16 px-4 sm:px-6 lg:px-8 bg-card border-t border-border">
-  <div className="max-w-7xl mx-auto">
+<section className="relative isolate overflow-hidden border-t border-border bg-card px-3 py-12 sm:px-6 sm:py-16 lg:px-8">
+  <svg
+    aria-hidden="true"
+    className="pointer-events-none absolute inset-0 h-full w-full text-primary/20"
+    viewBox="0 0 1440 700"
+    preserveAspectRatio="xMidYMid slice"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <circle cx="1190" cy="145" r="58" />
+    <path d="M0 475 195 270l104 112 143-185 225 278H0Z" />
+    <path d="m390 475 183-194 125 137 140-175 236 232H390Z" />
+    <path d="M0 498h1440M0 523h1440" strokeDasharray="5 12" />
+    <path d="M120 190c160-115 340-105 480-15s260 90 385-10 220-110 340-35" strokeDasharray="8 12" />
+    <path d="m1274 116 45-6-23 14-6 24-8-19-25-6 17-7Z" />
+    <path d="M1300 700c12-94 18-157 13-222m0 62-57-55m57 83 55-57m-55 99-45-37m45 67 42-37" />
+    <path d="M1297 480c-48-5-69-27-65-61 37 5 60 23 65 61Zm15-31c1-39 19-61 54-66 2 36-17 58-54 66Z" />
+    <path d="M70 120c0 25-34 61-34 61S2 145 2 120a34 34 0 1 1 68 0Z" transform="translate(70 100)" />
+    <circle cx="104" cy="220" r="10" />
+  </svg>
+  <div className="relative z-10 mx-auto max-w-7xl">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="text-center mb-12"
+      className="mb-8 text-center sm:mb-12"
     >
-      <h2 className="text-4xl md:text-5xl font-display font-bold mb-4">
+      <h2 className="mb-3 text-3xl font-display font-bold sm:mb-4 sm:text-5xl">
         {t('testimonials.title')}
       </h2>
-      <p className="text-xl text-muted-foreground">
+      <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-xl">
         {t('testimonials.subtitle')}
       </p>
     </motion.div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
       {loadingReviews ? (
         <p className="text-center col-span-full text-muted-foreground">
           Loading reviews...
@@ -413,14 +547,21 @@ export const Home = () => {
           No reviews yet ⭐
         </p>
       ) : (
-        topReviews.map((review) => {
+        topReviews.map((review, index) => {
           // Fallback image
           const imageSrc = review.images?.[0] || "/images/user-default.png";
 
           return (
-            <div
+            <motion.div
               key={review.id}
-              className="relative h-80 rounded-xl overflow-hidden group shadow-lg hover:shadow-xl transition-shadow duration-300"
+              initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.88, y: 18 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={shouldReduceMotion
+                ? { duration: 0 }
+                : { type: 'spring', stiffness: 260, damping: 20, delay: index * 0.12 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -6, scale: 1.02 }}
+              className="group relative h-72 overflow-hidden rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-xl sm:h-80"
             >
               {/* Customer Image */}
               <img
@@ -433,7 +574,7 @@ export const Home = () => {
               <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition" />
 
               {/* Overlay Content */}
-              <div className="relative z-10 flex flex-col justify-end h-full p-6 text-white">
+              <div className="relative z-10 flex h-full flex-col justify-end p-4 text-white sm:p-6">
                 {/* Rating */}
                 <div className="flex gap-1 mb-2">
                   {[...Array(5)].map((_, i) => (
@@ -449,7 +590,7 @@ export const Home = () => {
                 </div>
 
                 {/* Comment */}
-                <p className="text-sm md:text-base leading-relaxed mb-2 line-clamp-3">
+                <p className="mb-2 line-clamp-3 text-sm leading-relaxed sm:text-base">
                   "{review.comment}"
                 </p>
 
@@ -458,12 +599,20 @@ export const Home = () => {
                   — {review.name}
                 </p>
               </div>
-            </div>
+            </motion.div>
           );
         })
       )}
     </div>
-  
+
+    <div className="mt-8 text-center sm:mt-10">
+      <Button asChild size="lg" className="w-full max-w-xs bg-primary text-primary-foreground hover:bg-primary/90 sm:w-auto">
+        <Link to="/testimonials">
+          {t('testimonials.viewAllReviews')}
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Link>
+      </Button>
+    </div>
 
           {/* <div className="mt-12 p-8 bg-gradient-to-r from-primary/5 via-accent/5 to-secondary/5 border border-border rounded-xl text-center">
             <h3 className="text-xl font-semibold text-foreground mb-2">Google Reviews & Ratings</h3>
@@ -483,29 +632,80 @@ export const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/90 to-primary">
+      <section className="bg-gradient-to-r from-primary/90 to-primary px-4 py-14 sm:py-20">
         <div className="container mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-display font-bold text-primary-foreground mb-6">
+            <h2 className="mb-4 text-3xl font-display font-bold text-primary-foreground sm:mb-6 sm:text-5xl">
               Ready for Your Adventure?
             </h2>
-            <p className="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+            <p className="mx-auto mb-6 max-w-2xl text-base text-primary-foreground/90 sm:mb-8 sm:text-xl">
               Book your dream tour today and experience India like never before
             </p>
             <Button
               asChild
               size="lg"
-              className="bg-background text-foreground hover:bg-background/90"
+              className="w-full max-w-xs bg-background text-foreground hover:bg-background/90 sm:w-auto"
             >
-              <Link to="/packages">
-                Explore Packages <ArrowRight className="ml-2" />
+              <Link to="/contact">
+                {t('contact.enquireNow')} <ArrowRight className="ml-2" />
               </Link>
             </Button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Client Feedback Videos */}
+      <section className="relative isolate overflow-hidden bg-muted/30 px-4 py-12 sm:px-6 sm:py-20 lg:px-8">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-cover bg-center opacity-[0.16]"
+          style={{ backgroundImage: `url("${heroImages[0].image}")` }}
+        />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0 bg-background/75" />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute left-0 top-12 z-0 h-80 w-80 -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-0 right-0 z-0 h-96 w-96 translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
+        />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-8 text-center sm:mb-12"
+          >
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary sm:mb-3 sm:text-sm sm:tracking-[0.25em]">
+              {t('testimonials.feedbackEyebrow')}
+            </p>
+            <h2 className="mb-3 text-3xl font-display font-bold sm:mb-4 sm:text-5xl">
+              {t('testimonials.feedbackTitle')}
+            </h2>
+            <p className="mx-auto max-w-3xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              {t('testimonials.feedbackSubtitle')}
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 items-start gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-3">
+            {['/videos/r-1.mp4', '/videos/r-2.mp4', '/videos/r-3.mp4'].map((src, index) => (
+              <ClientFeedbackCard
+                key={src}
+                src={src}
+                label={t('testimonials.clientVideo', { number: index + 1 })}
+                playLabel={t('testimonials.playVideo')}
+                pauseLabel={t('testimonials.pauseVideo')}
+                enableAudioLabel={t('testimonials.enableVideoAudio')}
+                muteAudioLabel={t('testimonials.muteVideoAudio')}
+                errorLabel={t('testimonials.videoUnavailable')}
+              />
+            ))}
+          </div>
         </div>
       </section>
 

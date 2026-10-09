@@ -3,7 +3,7 @@
     "home": "Home",
     "packages": "Packages",
     "gallery": "Gallery",
-    "testimonials": "Testimonials",
+    "testimonials": "Reviews",
     "terms": "Terms & Conditions",
     "contact": "Contact Us"
   },
@@ -50,8 +50,18 @@
     "subtitle": "Captured moments from our incredible journeys"
   },
   "testimonials": {
-    "title": "What our travelers say",
+    "title": "Our Happy Clients",
     "subtitle": "Real experiences from real travelers who've explored India with us",
+    "viewAllReviews": "View All Reviews",
+    "feedbackEyebrow": "Real stories, unforgettable journeys",
+    "feedbackTitle": "What Our Customers Say",
+    "feedbackSubtitle": "Hear directly from travelers about the moments and memories they made with ADN Adventures.",
+    "clientVideo": "Client story {{number}}",
+    "playVideo": "Play client feedback video",
+    "pauseVideo": "Pause client feedback video",
+    "enableVideoAudio": "Enable video audio",
+    "muteVideoAudio": "Mute video audio",
+    "videoUnavailable": "This video could not be played.",
     "googleReviews": "Google Reviews"
   },
   "footer": {
@@ -71,6 +81,7 @@
   "contact": {
     "title": "Get in Touch",
     "subtitle": "We'd love to hear from you",
+    "enquireNow": "Enquire Now",
     "name": "Your Name",
     "email": "Your Email",
     "message": "Your Message",

@@ -58,27 +58,27 @@ export const Header = () => {
       initial={{ y: -100 }}
       animate={{ y: isVisible ? 0 : -140 }}
       transition={{ duration: 0.25, ease: 'easeInOut' }}
-      className="fixed inset-x-0 top-4 z-50 flex justify-center px-3"
+      className="fixed inset-x-0 top-3 z-50 flex justify-center px-3"
     >
       <div
-        className={`w-full max-w-7xl border border-white/35 bg-white/20 px-4 shadow-[0_12px_40px_hsl(24_10%_10%/0.18),inset_0_1px_0_hsl(0_0%_100%/0.55)] backdrop-blur-[32px] transition-all duration-300 dark:border-white/15 dark:bg-black/20 sm:px-6 ${
+        className={`w-full max-w-6xl border border-white/35 bg-white/20 px-3 shadow-[0_12px_40px_hsl(24_10%_10%/0.18),inset_0_1px_0_hsl(0_0%_100%/0.55)] backdrop-blur-[32px] transition-all duration-300 dark:border-white/15 dark:bg-black/20 sm:px-5 ${
           isMobileMenuOpen ? 'rounded-[2rem]' : 'rounded-full'
         } ${isScrolled ? 'bg-white/30 shadow-[0_16px_48px_hsl(24_10%_10%/0.24),inset_0_1px_0_hsl(0_0%_100%/0.65)] dark:bg-black/30' : ''}`}
       >
-        <div className="flex items-center justify-between h-20">
+        <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="flex items-center space-x-2 text-2xl font-display font-bold text-primary"
+              className="flex items-center space-x-2 text-xl font-display font-bold text-primary"
             >
-              <img src="/adn logo.png" alt="ADN Adventures Logo" className="h-26 w-28" />
+              <img src="/adn logo.png" alt="ADN Adventures Logo" className="h-16 w-20 object-contain" />
               {/* <h1>ADN <span className="text-foreground">Adventures</span></h1> */}
             </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6">
             {navLinks.map((link) => (
               <Link
                 key={link.path}
@@ -162,7 +162,7 @@ export const Header = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`block py-3 px-4 rounded-lg transition-colors ${location.pathname === link.path
+                  className={`block rounded-lg px-4 py-2.5 transition-colors ${location.pathname === link.path
                       ? 'bg-primary/10 text-primary font-medium'
                       : 'text-foreground/80 hover:bg-muted'
                     }`}
