@@ -8,9 +8,10 @@
     "contact": "Contact Us"
   },
   "hero": {
-    "title": "Discover the Magic of India",
-    "subtitle": "From Kanyakumari to Kashmir",
-    "description": "Experience breathtaking journeys across India's most iconic destinations with our expertly curated tour packages",
+    "titleLine1": "Your Journey",
+    "titleLine2": "Our Responsibilities",
+    "subtitle": "Global travel, personally planned",
+    "description": "We provide complete, end-to-end travel services for people around the world—taking you from anywhere in the world to anywhere in the world.",
     "cta": "Explore Packages",
     "cta2": "Learn More"
   },

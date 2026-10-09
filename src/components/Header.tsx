@@ -40,12 +40,13 @@ export const Header = () => {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? 'bg-background/95 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
-        }`}
+      className="fixed inset-x-0 top-4 z-50 flex justify-center px-3"
     >
-      <div className="container mx-auto px-4">
+      <div
+        className={`w-full max-w-7xl border border-white/35 bg-white/20 px-4 shadow-[0_12px_40px_hsl(24_10%_10%/0.18),inset_0_1px_0_hsl(0_0%_100%/0.55)] backdrop-blur-[32px] transition-all duration-300 dark:border-white/15 dark:bg-black/20 sm:px-6 ${
+          isMobileMenuOpen ? 'rounded-[2rem]' : 'rounded-full'
+        } ${isScrolled ? 'bg-white/30 shadow-[0_16px_48px_hsl(24_10%_10%/0.24),inset_0_1px_0_hsl(0_0%_100%/0.65)] dark:bg-black/30' : ''}`}
+      >
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2 group">
@@ -133,7 +134,7 @@ export const Header = () => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-background border-t border-border mt-2 pt-4 pb-4"
+              className="lg:hidden mt-1 border-t border-border/50 pt-3 pb-4"
             >
               {navLinks.map((link) => (
                 <Link

@@ -1,19 +1,90 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, MapPin, Users, Award, Shield, Calendar, Star } from 'lucide-react';
+import { ArrowRight, Award, ShieldCheck, Plane, Calendar, Star } from 'lucide-react';
 import { packages } from '@/data/packages';
 import { TESTIMONIALS } from '@/data/testimonials';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { BookingForm } from '@/components/BookingForm';
 import { supabase } from '@/lib/supabase';
+
+const CustomerCount = ({ isHindi }: { isHindi: boolean }) => {
+  const countRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(countRef, { once: true, amount: 0.6 });
+  const shouldReduceMotion = useReducedMotion();
+  const count = useMotionValue(0);
+  const roundedCount = useTransform(count, (value) => Math.round(value).toLocaleString());
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    if (shouldReduceMotion) {
+      count.set(500);
+      return;
+    }
+
+    const animation = animate(count, 500, { duration: 2.2, ease: 'easeOut' });
+    return () => animation.stop();
+  }, [count, isInView, shouldReduceMotion]);
+
+  return (
+    <div ref={countRef} className="relative text-center lg:text-left">
+      <div className="absolute left-1/2 -top-5 h-20 w-20 -translate-x-1/2 rounded-full border border-primary/25 lg:left-[-1.25rem] lg:translate-x-0" />
+      <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary sm:text-sm sm:tracking-[0.24em]">
+        {isHindi ? 'आपका भरोसा, हमारी पहचान' : 'Trusted by travelers'}
+      </p>
+      <div className="flex items-baseline justify-center font-display font-bold leading-none tracking-tight text-foreground lg:justify-start">
+        <motion.span className="text-6xl text-primary min-[380px]:text-7xl sm:text-8xl md:text-9xl">
+          {roundedCount}
+        </motion.span>
+        <span className="text-4xl text-primary min-[380px]:text-5xl sm:text-6xl md:text-7xl">+</span>
+      </div>
+      <p className="mt-3 text-base font-medium text-muted-foreground sm:text-lg">
+        {isHindi ? 'संतुष्ट ग्राहक और बढ़ते हुए' : 'Happy customers '}
+      </p>
+      <div className="mx-auto mt-5 h-1 w-24 rounded-full bg-gradient-to-r from-primary to-primary/10 lg:mx-0" />
+    </div>
+  );
+};
+
+const heroImages = [
+  {
+    image: 'https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&crop=entropy&w=2400&h=1350&q=90',
+    destination: 'Kerala, India'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&crop=entropy&w=2400&h=1350&q=90',
+    destination: 'Manali, India'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=2400&q=85',
+    destination: 'Dubai'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=2400&q=85',
+    destination: 'Bali'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=2400&q=85',
+    destination: 'Vietnam'
+  }
+];
 
 export const Home = () => {
   const { t, i18n } = useTranslation();
 
   const [topReviews, setTopReviews] = useState<any[]>([]);
   const [loadingReviews, setLoadingReviews] = useState(true);
+  const [activeHeroImage, setActiveHeroImage] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveHeroImage((currentImage) => (currentImage + 1) % heroImages.length);
+    }, 6500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const fetchTopReviews = async () => {
@@ -57,34 +128,27 @@ export const Home = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const features = [
-    {
-      icon: MapPin,
-      title: 'Expert Destinations',
-      titleHi: 'विशेषज्ञ गंतव्य',
-      description: 'Curated tours across India',
-      descriptionHi: 'भारत भर में क्यूरेटेड टूर'
-    },
-    {
-      icon: Users,
-      title: 'Professional Guides',
-      titleHi: 'पेशेवर गाइड',
-      description: 'Experienced local experts',
-      descriptionHi: 'अनुभवी स्थानीय विशेषज्ञ'
-    },
+  const trustFeatures = [
     {
       icon: Award,
       title: 'Premium Service',
       titleHi: 'प्रीमियम सेवा',
-      description: 'Luxury accommodations',
-      descriptionHi: 'लक्जरी आवास'
+      description: 'Thoughtful support, tailored to your trip',
+      descriptionHi: 'आपकी यात्रा के अनुसार व्यक्तिगत सहायता'
     },
     {
-      icon: Shield,
+      icon: ShieldCheck,
       title: 'Safe Travel',
       titleHi: 'सुरक्षित यात्रा',
-      description: 'Fully insured packages',
-      descriptionHi: 'पूरी तरह से बीमित पैकेज'
+      description: 'Reliable planning and support at every step',
+      descriptionHi: 'हर कदम पर भरोसेमंद योजना और सहायता'
+    },
+    {
+      icon: Plane,
+      title: 'Visa Support',
+      titleHi: 'वीज़ा सहायता',
+      description: 'Guidance to help make travel preparation easier',
+      descriptionHi: 'यात्रा की तैयारी को आसान बनाने के लिए मार्गदर्शन'
     }
   ];
 
@@ -93,40 +157,38 @@ export const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Video Background */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Video Background */}
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-            poster="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920"
-          >
-            <source
-              src="https://cdn.coverr.co/videos/coverr-aerial-view-of-a-lake-in-the-mountains-3607/1080p.mp4"
-              type="video/mp4"
+      {/* Hero Section */}
+      <section className="relative flex h-[100svh] min-h-[640px] items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0 bg-slate-900">
+          {heroImages.map((image, index) => (
+            <motion.div
+              key={image.image}
+              aria-hidden="true"
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url("${image.image}")` }}
+              initial={false}
+              animate={{ opacity: activeHeroImage === index ? 1 : 0 }}
+              transition={{ duration: 1.4, ease: 'easeInOut' }}
             />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />
+          ))}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/40 to-black/65" />
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-4 text-center">
+        <div className="relative z-10 container mx-auto px-4 pt-20 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-5xl md:text-7xl font-display font-bold text-white mb-6">
-              {t('hero.title')}
-            </h1>
-            <p className="text-xl md:text-3xl font-display text-primary mb-4">
+            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.35em] text-primary sm:text-sm">
               {t('hero.subtitle')}
             </p>
-            <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto mb-8">
+            <h1 className="mx-auto mb-6 max-w-5xl text-4xl font-display font-bold leading-tight text-white sm:text-6xl md:text-7xl lg:text-8xl">
+              <span className="block">{t('hero.titleLine1')}</span>
+              <span className="block">{t('hero.titleLine2')}</span>
+            </h1>
+            <p className="mx-auto mb-9 max-w-3xl text-lg leading-relaxed text-white/90 md:text-2xl">
               {t('hero.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -151,6 +213,21 @@ export const Home = () => {
           </motion.div>
         </div>
 
+        <div className="absolute bottom-8 left-8 z-10 flex items-center gap-3">
+          <span className="text-xs font-semibold uppercase tracking-wider text-white drop-shadow">
+            {heroImages[activeHeroImage].destination}
+          </span>
+          {heroImages.map((image, index) => (
+            <span
+              key={image.image}
+              aria-hidden="true"
+              className={`h-1.5 rounded-full transition-all duration-500 ${
+                activeHeroImage === index ? 'w-8 bg-primary' : 'w-1.5 bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
+
         {/* Scroll Indicator */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -168,30 +245,43 @@ export const Home = () => {
         </motion.div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center group"
-              >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-display font-semibold mb-2">
-                  {i18n.language === 'en' ? feature.title : feature.titleHi}
-                </h3>
-                <p className="text-muted-foreground">
-                  {i18n.language === 'en' ? feature.description : feature.descriptionHi}
-                </p>
-              </motion.div>
-            ))}
+      {/* Trust Features Section */}
+      <section className="relative overflow-hidden border-y border-primary/15 bg-gradient-to-br from-background via-primary/[0.07] to-background py-12 sm:py-16 md:py-20">
+        <div className="pointer-events-none absolute -right-24 -top-28 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+        <div className="container relative mx-auto px-4 sm:px-6">
+          <div className="grid gap-8 sm:gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <CustomerCount isHindi={i18n.language !== 'en'} />
+            </motion.div>
+
+            <div className="grid grid-cols-1 divide-y divide-primary/20 sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-3">
+              {trustFeatures.map((feature, index) => (
+                <motion.div
+                  key={feature.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`group py-5 sm:px-5 sm:py-4 lg:px-7 ${
+                    index === 1 ? 'sm:border-l sm:border-primary/20 lg:border-l-0' : ''
+                  } ${index === 2 ? 'sm:col-span-2 sm:border-t sm:border-primary/20 lg:col-span-1 lg:border-l lg:border-t-0 lg:border-primary/20' : ''}`}
+                >
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 transition-all duration-300 group-hover:rotate-[-6deg] group-hover:bg-primary/20 sm:mb-5 sm:h-12 sm:w-12 sm:rounded-2xl">
+                    <feature.icon className="h-6 w-6 text-primary" strokeWidth={1.7} />
+                  </div>
+                  <h3 className="mb-2 font-display text-lg font-semibold sm:text-xl">
+                    {i18n.language === 'en' ? feature.title : feature.titleHi}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {i18n.language === 'en' ? feature.description : feature.descriptionHi}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
