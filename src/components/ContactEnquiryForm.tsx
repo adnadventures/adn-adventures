@@ -6,13 +6,21 @@ import { Textarea } from '@/components/ui/textarea';
 
 interface ContactEnquiryFormProps {
   className?: string;
+  idPrefix?: string;
+  initialDestination?: string;
+  packageTitle?: string;
 }
 
 const glassFieldClass =
   'h-14 border-white/30 bg-white/20 px-5 text-white placeholder:text-white/80 focus-visible:ring-primary';
 const glassLabelClass = 'sr-only';
 
-export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) => {
+export const ContactEnquiryForm = ({
+  className = '',
+  idPrefix = 'contact-enquiry',
+  initialDestination = '',
+  packageTitle,
+}: ContactEnquiryFormProps) => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
@@ -20,7 +28,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
     phone: '',
     whatsapp: '',
     city: '',
-    destination: '',
+    destination: initialDestination,
     date: '',
     people: '',
     vacationType: '',
@@ -37,6 +45,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
 
     const enquiry = [
       t('booking.whatsappDraft.title'),
+      ...(packageTitle ? [`${t('booking.package')}: ${packageTitle}`] : []),
       `${t('booking.name')}: ${formData.name}`,
       `${t('booking.email')}: ${formData.email}`,
       `${t('booking.phone')}: +91 ${formData.phone}`,
@@ -78,9 +87,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-5">
           <div>
-            <label htmlFor="contact-enquiry-name" className={glassLabelClass}>{t('booking.name')}</label>
+            <label htmlFor={`${idPrefix}-name`} className={glassLabelClass}>{t('booking.name')}</label>
             <Input
-              id="contact-enquiry-name"
+              id={`${idPrefix}-name`}
               required
               name="name"
               autoComplete="name"
@@ -92,9 +101,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-email" className={glassLabelClass}>{t('booking.email')}</label>
+            <label htmlFor={`${idPrefix}-email`} className={glassLabelClass}>{t('booking.email')}</label>
             <Input
-              id="contact-enquiry-email"
+              id={`${idPrefix}-email`}
               type="email"
               required
               name="email"
@@ -107,7 +116,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-phone" className="mb-1 block text-sm font-medium text-white">
+            <label htmlFor={`${idPrefix}-phone`} className="mb-1 block text-sm font-medium text-white">
               {t('booking.phone')} <span className="text-rose-300">*</span>
             </label>
             <div className="flex h-14 overflow-hidden rounded-md border border-white/20 bg-white/15 focus-within:ring-2 focus-within:ring-white/70">
@@ -115,7 +124,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
                 🇮🇳 <span className="ml-2">+91</span>
               </span>
               <Input
-                id="contact-enquiry-phone"
+                id={`${idPrefix}-phone`}
                 type="tel"
                 required
                 name="phone"
@@ -130,7 +139,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-whatsapp" className="mb-1 block text-sm font-medium text-white">
+            <label htmlFor={`${idPrefix}-whatsapp`} className="mb-1 block text-sm font-medium text-white">
               {t('booking.whatsapp')} <span className="text-rose-300">*</span>
             </label>
             <div className="flex h-14 overflow-hidden rounded-md border border-white/20 bg-white/15 focus-within:ring-2 focus-within:ring-white/70">
@@ -138,7 +147,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
                 🇮🇳 <span className="ml-2">+91</span>
               </span>
               <Input
-                id="contact-enquiry-whatsapp"
+                id={`${idPrefix}-whatsapp`}
                 type="tel"
                 required
                 name="whatsapp"
@@ -153,9 +162,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-city" className={glassLabelClass}>{t('booking.cityOfResidence')}</label>
+            <label htmlFor={`${idPrefix}-city`} className={glassLabelClass}>{t('booking.cityOfResidence')}</label>
             <Input
-              id="contact-enquiry-city"
+              id={`${idPrefix}-city`}
               required
               name="city"
               autoComplete="address-level2"
@@ -167,9 +176,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-destination" className={glassLabelClass}>{t('booking.travelDestination')}</label>
+            <label htmlFor={`${idPrefix}-destination`} className={glassLabelClass}>{t('booking.travelDestination')}</label>
             <Input
-              id="contact-enquiry-destination"
+              id={`${idPrefix}-destination`}
               required
               name="destination"
               placeholder={t('booking.travelDestination')}
@@ -180,7 +189,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-date" className="sr-only">{t('booking.date')}</label>
+            <label htmlFor={`${idPrefix}-date`} className="sr-only">{t('booking.date')}</label>
             <div className="relative">
               {!formData.date && (
                 <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-5 z-10 flex items-center text-white/80">
@@ -188,7 +197,7 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
                 </span>
               )}
               <Input
-                id="contact-enquiry-date"
+                id={`${idPrefix}-date`}
                 type="date"
                 required
                 name="date"
@@ -205,9 +214,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-people" className={glassLabelClass}>{t('booking.people')}</label>
+            <label htmlFor={`${idPrefix}-people`} className={glassLabelClass}>{t('booking.people')}</label>
             <Input
-              id="contact-enquiry-people"
+              id={`${idPrefix}-people`}
               type="number"
               min="1"
               required
@@ -220,9 +229,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-vacation" className={glassLabelClass}>{t('booking.vacationType')}</label>
+            <label htmlFor={`${idPrefix}-vacation`} className={glassLabelClass}>{t('booking.vacationType')}</label>
             <select
-              id="contact-enquiry-vacation"
+              id={`${idPrefix}-vacation`}
               required
               name="vacationType"
               value={formData.vacationType}
@@ -239,9 +248,9 @@ export const ContactEnquiryForm = ({ className = '' }: ContactEnquiryFormProps) 
           </div>
 
           <div>
-            <label htmlFor="contact-enquiry-message" className={glassLabelClass}>{t('booking.message')}</label>
+            <label htmlFor={`${idPrefix}-message`} className={glassLabelClass}>{t('booking.message')}</label>
             <Textarea
-              id="contact-enquiry-message"
+              id={`${idPrefix}-message`}
               name="message"
               rows={2}
               placeholder={t('booking.message')}

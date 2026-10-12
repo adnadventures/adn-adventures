@@ -795,7 +795,6 @@ export const Home = () => {
       {/* ================= BOOKING POPUP ================= */}
       {showBooking && (
         <BookingForm
-          packageId="default"
           packageTitle="Custom Tour Package"
           onClose={() => setShowBooking(false)}
         />

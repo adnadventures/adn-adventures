@@ -1,158 +1,199 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { packages } from '@/data/packages';
-import { Calendar, Users, MapPin, ArrowRight } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { packages, type PackageType } from '@/data/packages';
+import { ArrowLeft, ArrowRight, Calendar, MapPin, Search, Users } from 'lucide-react';
+
+const packageTypes: { value: PackageType; image: string }[] = [
+  { value: 'domestic', image: '/manali.jpg' },
+  { value: 'international', image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1000&q=80' },
+  { value: 'honeymoon', image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1000&q=80' },
+  { value: 'iv', image: '/pondicherry.jpg' },
+  { value: 'spiritualHeritage', image: '/aarupadai.jpg' },
+];
 
 export const Packages = () => {
   const { t, i18n } = useTranslation();
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedType = packageTypes.find(({ value }) => value === searchParams.get('type'))?.value ?? null;
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const categories = [
-    { value: 'all', label: t('packages.filter.all') },
-    { value: 'adventure', label: t('packages.filter.adventure') },
-    { value: 'cultural', label: t('packages.filter.cultural') },
-    { value: 'spiritual', label: t('packages.filter.spiritual') },
-    { value: 'beach', label: t('packages.filter.beach') },
-    { value: 'mountain', label: t('packages.filter.mountain') },
-  ];
+  const filteredPackages = selectedType
+    ? packages.filter((pkg) => {
+      if (pkg.packageType !== selectedType) return false;
 
-  const filteredPackages =
-    selectedCategory === 'all'
-      ? packages
-      : packages.filter((pkg) => pkg.category === selectedCategory);
+      const query = searchQuery.trim().toLocaleLowerCase();
+      if (!query) return true;
+
+      return [
+        pkg.title,
+        pkg.titleHi,
+        pkg.location,
+        pkg.description,
+        pkg.descriptionHi,
+      ].some((value) => value?.toLocaleLowerCase().includes(query));
+    })
+    : [];
 
   return (
-    <div className="min-h-screen pt-24 pb-16">
+    <main className="min-h-screen pb-16 pt-24">
       <div className="container mx-auto px-4">
-        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
+          className="mx-auto mb-10 max-w-4xl text-center sm:mb-14"
         >
-          <h1 className="text-5xl md:text-6xl font-display font-bold mb-4">
-            {t('packages.title')}
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary sm:text-base">
+            {t('packages.eyebrow')}
+          </p>
+          <h1 className="mb-4 font-display text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
+            {selectedType
+              ? t('packages.collectionHeading', { type: t(`packages.types.${selectedType}`) })
+              : t('packages.title')}
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            {t('packages.subtitle')}
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground sm:text-xl">
+            {selectedType ? t(`packages.typeDescriptions.${selectedType}`) : t('packages.subtitle')}
           </p>
         </motion.div>
 
-        {/* Filters */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
-        >
-          {categories.map((category) => (
-            <button
-              key={category.value}
-              onClick={() => setSelectedCategory(category.value)}
-              className={`px-6 py-3 rounded-full font-medium transition-all ${
-                selectedCategory === category.value
-                  ? 'bg-primary text-primary-foreground shadow-lg scale-105'
-                  : 'bg-card hover:bg-muted border border-border'
-              }`}
+        {!selectedType ? (
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-8">
+            {packageTypes.map(({ value, image }, index) => (
+              <motion.button
+                key={value}
+                type="button"
+                onClick={() => {
+                  setSearchQuery('');
+                  setSearchParams({ type: value });
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.08 }}
+                className="group relative h-72 overflow-hidden rounded-3xl text-left shadow-lg focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-primary sm:h-80 lg:h-[22rem]"
+              >
+                <img
+                  src={image}
+                  alt=""
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <span className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6 text-white sm:p-8">
+                  <span>
+                    <span className="block text-3xl font-bold sm:text-4xl">
+                      {t(`packages.types.${value}`)}
+                    </span>
+                    <span className="mt-2 block text-sm text-white/80">
+                      {packages.filter((pkg) => pkg.packageType === value).length} {t('packages.packageCount')}
+                    </span>
+                  </span>
+                  <ArrowRight aria-hidden="true" className="mb-1 h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" />
+                </span>
+              </motion.button>
+            ))}
+          </div>
+        ) : (
+          <>
+            <Button
+              type="button"
+              variant="ghost"
+              onClick={() => {
+                setSearchQuery('');
+                setSearchParams({});
+              }}
+              className="mb-6"
             >
-              {category.label}
-            </button>
-          ))}
-        </motion.div>
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              {t('packages.backToTypes')}
+            </Button>
 
-        {/* Package Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredPackages.map((pkg, index) => (
-            <motion.div
-              key={pkg.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="group"
-            >
-              <div className="bg-card rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col">
-                {/* Image */}
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={pkg.image}
-                    alt={i18n.language === 'en' ? pkg.title : pkg.titleHi}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4 bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold capitalize">
-                    {pkg.category}
-                  </div>
-                  <div className="absolute top-4 right-4 bg-background/90 backdrop-blur-sm text-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                    {pkg.duration} {t('packages.days')}
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-2xl font-display font-bold mb-3">
-                    {i18n.language === 'en' ? pkg.title : pkg.titleHi}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 line-clamp-2 flex-1">
-                    {i18n.language === 'en' ? pkg.description : pkg.descriptionHi}
-                  </p>
-
-                  {/* Highlights */}
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Calendar className="h-4 w-4 mr-2 text-primary" />
-                      {pkg.duration} days / {pkg.duration - 1} nights
-                    </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <MapPin className="h-4 w-4 mr-2 text-primary" />
-                      India
-                    </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Users className="h-4 w-4 mr-2 text-primary" />
-                      Small groups (max 15)
-                    </div>
-                  </div>
-
-                  {/* Price and CTA */}
-                  <div className="flex items-center justify-center pt-4 border-t border-border">
-                    {/* <div>
-                      <span className="text-sm text-muted-foreground block">
-                        {t('packages.from')}
-                      </span>
-                      <p className="text-2xl font-bold text-primary">
-                        ₹{pkg.price.toLocaleString()}
-                      </p>
-                    </div> */}
-                    <Button
-                      asChild
-                      className="w-[80%] bg-primary hover:bg-primary/90 text-primary-foreground"
-                    >
-                      <Link to={`/packages/${pkg.id}`}>
-                        {t('packages.viewDetails')}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </div>
+            <div className="mx-auto mb-8 max-w-xl">
+              <div className="relative">
+                <Search aria-hidden="true" className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  type="search"
+                  value={searchQuery}
+                  onChange={(event) => setSearchQuery(event.target.value)}
+                  placeholder={t('packages.searchPlaceholder')}
+                  aria-label={t('packages.searchPlaceholder')}
+                  className="h-11 rounded-xl pl-12 text-sm"
+                />
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
 
-        {filteredPackages.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-20"
-          >
-            <p className="text-xl text-muted-foreground">
-              No packages found in this category
-            </p>
-          </motion.div>
+            {filteredPackages.length > 0 ? (
+              <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-2 md:gap-10">
+                {filteredPackages.map((pkg, index) => (
+                <motion.article
+                  key={pkg.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.08 }}
+                  className="group flex flex-col overflow-hidden rounded-3xl bg-card shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                >
+                  <div className="relative h-72 overflow-hidden sm:h-80">
+                    <img
+                      src={pkg.image}
+                      alt={i18n.language === 'en' ? pkg.title : pkg.titleHi}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                    <span className="absolute left-4 top-4 rounded-full bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground">
+                      {t(`packages.types.${pkg.packageType}`)}
+                    </span>
+                    {pkg.isSample && (
+                      <span className="absolute right-4 top-4 rounded-full bg-background/90 px-3 py-1 text-sm font-semibold text-foreground">
+                        {t('packages.sample')}
+                      </span>
+                    )}
+                    <span className="absolute bottom-4 right-4 rounded-full bg-background/90 px-3 py-1 text-sm font-semibold text-foreground backdrop-blur-sm">
+                      {pkg.duration} {t('packages.days')}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-1 flex-col p-7 sm:p-8">
+                    <h2 className="mb-3 font-display text-2xl font-bold sm:text-3xl">
+                      {i18n.language === 'en' ? pkg.title : pkg.titleHi}
+                    </h2>
+                    <p className="mb-4 line-clamp-3 flex-1 text-muted-foreground">
+                      {i18n.language === 'en' ? pkg.description : pkg.descriptionHi}
+                    </p>
+                    <div className="mb-5 space-y-2">
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Calendar aria-hidden="true" className="mr-2 h-4 w-4 text-primary" />
+                        {pkg.duration} {t('packages.days')} / {pkg.duration - 1} {t('packages.nights')}
+                      </div>
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <MapPin aria-hidden="true" className="mr-2 h-4 w-4 text-primary" />
+                        {pkg.location ?? 'India'}
+                      </div>
+                      <div className="flex items-center text-sm text-muted-foreground">
+                        <Users aria-hidden="true" className="mr-2 h-4 w-4 text-primary" />
+                        {t('packages.minimumGroup', { count: pkg.min })}
+                      </div>
+                    </div>
+                    <div className="border-t border-border pt-4 text-center">
+                      <Button asChild className="w-[80%] bg-primary text-primary-foreground hover:bg-primary/90">
+                        <Link to={`/packages/${pkg.id}`}>
+                          {t('packages.viewDetails')}
+                          <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </motion.article>
+                ))}
+              </div>
+            ) : (
+              <p className="py-12 text-center text-muted-foreground">
+                {t('packages.noSearchResults')}
+              </p>
+            )}
+          </>
         )}
       </div>
-    </div>
+    </main>
   );
 };

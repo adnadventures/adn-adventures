@@ -1,5 +1,10 @@
+export type PackageType = 'domestic' | 'international' | 'honeymoon' | 'iv' | 'spiritualHeritage';
+
 export interface Package {
   id: string;
+  packageType: PackageType;
+  location?: string;
+  isSample?: boolean;
   title: string;
   titleHi: string;
   description: string;
@@ -26,16 +31,16 @@ export interface Package {
   excludedHi: string[];
 }
 
-export const packages: Package[] = [
+const currentPackages: Omit<Package, 'packageType'>[] = [
   {
     id: 'kashmir-paradise',
     title: 'kashmir paradise',
     titleHi: 'कश्मीर स्वर्ग',
     description: 'Experience the breathtaking beauty of Kashmir with snow-capped mountains, pristine lakes, and Mughal gardens',
     descriptionHi: 'बर्फ से ढके पहाड़ों, प्राचीन झीलों और मुगल उद्यानों के साथ कश्मीर की लुभावनी सुंदरता का अनुभव करें',
-    price: 4999,
-    duration: 4,
-    min: 4,
+    price: 5500,
+    duration: 5,
+    min: 16,
     category: 'mountain',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4',
     gallery: [
@@ -50,14 +55,14 @@ export const packages: Package[] = [
     highlights: [
       'Dal Lake Shikara Ride',
       'Gulmarg Gondola Experience',
-      'Mughal Gardens Tour',
+      'Gulmarg Snow Activities',
       'Pahalgam Valley Visit',
       'sonmarg Excursion'
     ],
     highlightsHi: [
       'डल झील शिकारा सवारी',
       'गुलमर्ग गोंडोला अनुभव',
-      'मुगल गार्डन टूर',
+      'गुलमर्ग बर्फ गतिविधियाँ',
       'पहलगाम घाटी यात्रा',
       'सोनमर्ग भ्रमण'
     ],
@@ -66,49 +71,71 @@ export const packages: Package[] = [
         day: 1,
         title: 'Arrival in Srinagar',
         titleHi: 'श्रीनगर में आगमन',
-        description: 'Arrive at Srinagar airport, transfer to houseboat, evening Shikara ride on Dal Lake',
-        descriptionHi: 'श्रीनगर हवाई अड्डे पर पहुंचें, हाउसबोट में स्थानांतरण, डल झील पर शाम की शिकारा सवारी'
+        description: 'Pick up from Srinagar Airport/Railway Station, Hotel check-in, If time permits Srinagar local market visit/night walk, Dinner at hotel, Overnight stay at hotel',
+        descriptionHi: 'श्रीनगर हवाई अड्डे/रेलवे स्टेशन से पिकअप, होटल चेक-इन, यदि समय अनुमति देता है तो श्रीनगर स्थानीय बाजार यात्रा/रात की सैर, होटल में रात का खाना, होटल में रात भर ठहराव'
       },
       {
         day: 2,
-        title: 'Srinagar Sightseeing',
-        titleHi: 'श्रीनगर दर्शनीय स्थल',
-        description: 'Visit Mughal Gardens - Nishat Bagh, Shalimar Bagh, and Chashme Shahi',
-        descriptionHi: 'मुगल गार्डन की यात्रा - निशात बाग, शालीमार बाग, और चश्मे शाही'
+        title: 'Gulmarg Sightseeing and activities',
+        titleHi: 'गुलमर्ग दर्शनीय स्थल और गतिविधियाँ',
+        description: 'Gulmarg valley, Gondola ride, ATV ride, Skiing/snow activities(seasonal), Pine forest, Scenic Mountain views, Dinner at hotel, Overnight stay at Srinagar hotel',
+        descriptionHi: 'गुलमर्ग घाटी, गोंडोला सवारी, एटीवी सवारी, स्कीइंग/बर्फ गतिविधियाँ (मौसमी), पाइन जंगल, सुंदर पर्वत दृश्य, होटल में रात का खाना, श्रीनगर होटल में रात भर ठहराव'
       },
       {
         day: 3,
-        title: 'Gulmarg Excursion',
-        titleHi: 'गुलमर्ग भ्रमण',
-        description: 'Full day trip to Gulmarg, Gondola ride, meadow walks',
-        descriptionHi: 'गुलमर्ग की पूरे दिन की यात्रा, गोंडोला सवारी, घास के मैदान में सैर'
+        title: 'Pahalgam Sightseeing and activities',
+        titleHi: 'पहलगाम दर्शनीय स्थल और गतिविधियाँ',
+        description: 'Apple valley, Aru valley, pony rides(optional), Lidder river, scenic valley views, Dinner at hotel, Overnight stay at Srinagar hotel',
+        descriptionHi: 'एप्पल घाटी, अरू घाटी, पोनी सवारी (वैकल्पिक), लिडर नदी, सुंदर घाटी दृश्य, होटल में रात का खाना, श्रीनगर होटल में रात भर ठहराव'
+      },
+      {
+        day: 4,
+        title: 'Sonmarg Excursion',
+        titleHi: 'सोनमर्ग भ्रमण',
+        description: 'Sonmarg sightseeing, sonmarg valley, pony rides(optional), union vehicle if available, sind river, Snow covered mountain views, Dinner at hotel, Overnight stay at Srinagar hotel',
+        descriptionHi: 'सोनमर्ग की पूरे दिन की यात्रा, गोंडोला सवारी, घास के मैदान में सैर'
+      },
+      {
+        day: 5,
+        title: 'Srinagar Local Sightseeing and Departure',
+        titleHi: 'श्रीनगर स्थानीय दर्शनीय स्थल और प्रस्थान',
+        description: 'Dal lake, Dal Lake Shikara Ride, Tulip Garden, Nishat Garden, Shalimar Garden, Hazratbal Shrine, Local handicraft & shopping market, Drop at Srinagar Airport/Railway Station',
+        descriptionHi: 'डल झील, डल झील शिकारा सवारी, ट्यूलिप गार्डन, निशात गार्डन, शालीमार गार्डन, हज़रतबल श्राइन, स्थानीय हस्तशिल्प और शॉपिंग मार्केट, श्रीनगर हवाई अड्डे/रेलवे स्टेशन पर ड्रॉप'
       }
     ],
     included: [
-      'Accommodation in hotels/houseboats',
-      'Daily breakfast and dinner',
-      'All transfers and sightseeing',
-      'Shikara ride on Dal Lake',
-      'Professional tour guide'
+      'Pickup and drop from Srinagar Airport/Railway Station',
+      'Hotel accommodation in srinagar',
+      '4 breakfast',
+      '4 dinner',
+      '4 Days sightseeing as per the itinerary',
+      'Transportation for planned sightseeing and transfers',
+      'Shikara ride(above 10 members)',
     ],
     includedHi: [
-      'होटल/हाउसबोट में आवास',
-      'दैनिक नाश्ता और रात का खाना',
-      'सभी स्थानांतरण और दर्शनीय स्थल',
-      'डल झील पर शिकारा सवारी',
-      'पेशेवर टूर गाइड'
+      'श्रीनगर हवाई अड्डे/रेलवे स्टेशन से पिकअप और ड्रॉप',
+      'श्रीनगर में होटल की आवास',
+      '4 नाश्ते',
+      '4 रात का खाना',
+      'यात्रा निर्देशिका के अनुसार 4 दिनों का दर्शनीय स्थल',
+      'नियोजित दर्शनीय स्थलों और स्थानांतरण के लिए परिवहन',
+      'शिकारा सवारी (10 से अधिक सदस्यों के लिए)'
     ],
     excluded: [
-      'Flight tickets',
-      'Lunch',
+      'Shikara ride(below 10 members)',
+      'Skiing/snow activities',
+      'Local union vehicle charges whenever applicable',
+      'Entry tickets',
       'Personal expenses',
-      'Travel insurance'
+      'Any services not mentioned in the inclusions'
     ],
     excludedHi: [
-      'हवाई टिकट',
-      'दोपहर का भोजन',
+      'शिकारा सवारी (10 से कम सदस्यों के लिए)',
+      'स्कीइंग/बर्फ गतिविधियाँ',
+      'स्थानीय यूनियन वाहन कर',
+      'प्रवेश टिकट',
       'व्यक्तिगत खर्चे',
-      'यात्रा बीमा'
+      'यात्रा निर्देशिका में नहीं उल्लेखित कोई सेवाएँ'
     ]
   },
 
@@ -1843,4 +1870,117 @@ export const packages: Package[] = [
       'यात्रा बीमा'
     ]
   }
-]
+];
+
+type SamplePackageDetails = Pick<
+  Package,
+  | 'id'
+  | 'packageType'
+  | 'location'
+  | 'title'
+  | 'titleHi'
+  | 'description'
+  | 'descriptionHi'
+  | 'price'
+  | 'duration'
+  | 'category'
+  | 'image'
+  | 'gallery'
+  | 'highlights'
+  | 'highlightsHi'
+>;
+
+const createSamplePackage = (details: SamplePackageDetails): Package => ({
+  ...details,
+  isSample: true,
+  min: details.packageType === 'iv' ? 10 : 2,
+  videos: [],
+  itinerary: Array.from({ length: details.duration }, (_, index) => {
+    const day = index + 1;
+    const isArrival = index === 0;
+    const isDeparture = index === details.duration - 1;
+    const title = isArrival ? 'Arrival and check-in' : isDeparture ? 'Departure' : `Explore ${details.location}`;
+    const titleHi = isArrival ? 'आगमन और चेक-इन' : isDeparture ? 'प्रस्थान' : `${details.location} भ्रमण`;
+    const description = isArrival
+      ? `Arrive in ${details.location}, check in, and review the planned itinerary.`
+      : isDeparture
+        ? 'Check out and depart for your onward journey.'
+        : `Enjoy the planned activities and highlights around ${details.location}.`;
+    const descriptionHi = isArrival
+      ? `${details.location} पहुँचें, चेक-इन करें और यात्रा कार्यक्रम देखें।`
+      : isDeparture
+        ? 'चेक-आउट करें और आगे की यात्रा के लिए प्रस्थान करें।'
+        : `${details.location} के नियोजित अनुभवों और खास स्थलों का आनंद लें।`;
+
+    return { day, title, titleHi, description, descriptionHi };
+  }),
+  included: ['Sample accommodation', 'Local transfers as per final itinerary', 'Selected planned visits'],
+  includedHi: ['नमूना आवास', 'अंतिम यात्रा कार्यक्रम के अनुसार स्थानीय स्थानांतरण', 'चुनिंदा नियोजित भ्रमण'],
+  excluded: ['Travel to and from the destination', 'Meals not listed in the final itinerary', 'Personal expenses and travel insurance'],
+  excludedHi: ['गंतव्य तक आने-जाने का किराया', 'अंतिम यात्रा कार्यक्रम में शामिल न किए गए भोजन', 'व्यक्तिगत खर्च और यात्रा बीमा'],
+});
+
+const samplePackages: Package[] = [
+  createSamplePackage({
+    id: 'sample-bali-international',
+    packageType: 'international',
+    location: 'Bali, Indonesia',
+    title: 'Bali Island Escape',
+    titleHi: 'बाली द्वीप यात्रा',
+    description: 'Sample international itinerary featuring Bali beaches, Ubud, and island highlights. Contact us to customize dates and inclusions.',
+    descriptionHi: 'बाली के समुद्र तटों, उबुद और द्वीप के खास स्थलों के साथ नमूना अंतरराष्ट्रीय यात्रा। बदलाव और सुविधाओं के लिए संपर्क करें।',
+    price: 49999,
+    duration: 5,
+    category: 'beach',
+    image: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1600&q=80',
+    ],
+    highlights: ['Explore Ubud and its local culture', 'Relax at Bali beaches', 'Visit scenic temples and viewpoints'],
+    highlightsHi: ['उबुद और स्थानीय संस्कृति का अनुभव करें', 'बाली के समुद्र तटों पर आराम करें', 'सुंदर मंदिरों और नज़ारों की यात्रा करें'],
+  }),
+  createSamplePackage({
+    id: 'sample-maldives-honeymoon',
+    packageType: 'honeymoon',
+    location: 'Maldives',
+    title: 'Maldives Honeymoon Retreat',
+    titleHi: 'मालदीव हनीमून यात्रा',
+    description: 'Sample honeymoon getaway with island resort time, sunset views, and relaxed couple experiences. Contact us to customize.',
+    descriptionHi: 'द्वीप रिसॉर्ट, सूर्यास्त के नज़ारों और जोड़ों के लिए आरामदायक अनुभवों के साथ नमूना हनीमून यात्रा। बदलाव के लिए संपर्क करें।',
+    price: 69999,
+    duration: 4,
+    category: 'beach',
+    image: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1200&q=80',
+    gallery: [
+      'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?auto=format&fit=crop&w=1600&q=80',
+      'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?auto=format&fit=crop&w=1600&q=80',
+    ],
+    highlights: ['Island resort stay', 'Sunset by the lagoon', 'Leisure time for two'],
+    highlightsHi: ['द्वीप रिसॉर्ट में ठहराव', 'लैगून के किनारे सूर्यास्त', 'दो लोगों के लिए आराम का समय'],
+  }),
+  createSamplePackage({
+    id: 'sample-pondicherry-industrial-visit',
+    packageType: 'iv',
+    location: 'Puducherry, India',
+    title: 'Puducherry Student Industrial Visit',
+    titleHi: 'पुदुचेरी छात्र औद्योगिक भ्रमण',
+    description: 'Sample student group itinerary combining local industry exposure, heritage walks, and a science centre visit. Contact us to tailor it to your institution.',
+    descriptionHi: 'स्थानीय उद्योग अनुभव, विरासत भ्रमण और विज्ञान केंद्र की यात्रा के साथ नमूना छात्र समूह यात्रा। संस्थान के अनुसार इसे बनाने के लिए संपर्क करें।',
+    price: 7999,
+    duration: 3,
+    category: 'cultural',
+    image: '/pondicherry.jpg',
+    gallery: ['/pondicherry.jpg', '/gallery/0.jpg', '/gallery/1.jpg'],
+    highlights: ['Educational industry exposure', 'Puducherry heritage walk', 'Group-friendly itinerary'],
+    highlightsHi: ['शैक्षिक औद्योगिक अनुभव', 'पुदुचेरी विरासत भ्रमण', 'समूह के लिए सुविधाजनक यात्रा कार्यक्रम'],
+  }),
+];
+
+export const packages: Package[] = [
+  ...currentPackages.map((pkg) => ({
+    ...pkg,
+    packageType: pkg.id === 'Aarupadai' ? 'spiritualHeritage' as const : 'domestic' as const,
+  })),
+  ...samplePackages,
+];

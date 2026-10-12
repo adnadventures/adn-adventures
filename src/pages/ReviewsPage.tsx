@@ -1,27 +1,71 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Star } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 import { ReviewForm } from "@/components/ReviewForm";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+
+const REVIEWS_PER_PAGE = 15;
+
+interface Review {
+    id: string;
+    name: string;
+    comment: string;
+    rating: number;
+    images: string[] | null;
+    created_at: string;
+}
 
 const ReviewPage = () => {
-    const [reviews, setReviews] = useState<any[]>([]);
+    const [reviews, setReviews] = useState<Review[]>([]);
     const [loading, setLoading] = useState(true);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [totalReviews, setTotalReviews] = useState(0);
 
     const { t } = useTranslation();
+    const { toast } = useToast();
+
+    const fetchReviews = useCallback(async () => {
+        setLoading(true);
+        const { data, count, error } = await supabase
+            .from("reviews")
+            .select("*", { count: "exact" })
+            .order("created_at", { ascending: false })
+            .range(0, REVIEWS_PER_PAGE - 1);
+
+        if (error) {
+            toast({ title: t("testimonials.reviewsLoadError") });
+            setLoading(false);
+            return;
+        }
+
+        setReviews(data ?? []);
+        setTotalReviews(count ?? 0);
+        setLoading(false);
+    }, [t, toast]);
 
     useEffect(() => {
-        fetchReviews();
-    }, []);
+        void fetchReviews();
+    }, [fetchReviews]);
 
-    const fetchReviews = async () => {
-        const { data } = await supabase
+    const fetchMoreReviews = async () => {
+        setLoadingMore(true);
+        const { data, count, error } = await supabase
             .from("reviews")
-            .select("*")
-            .order("created_at", { ascending: false });
+            .select("*", { count: "exact" })
+            .order("created_at", { ascending: false })
+            .range(reviews.length, reviews.length + REVIEWS_PER_PAGE - 1);
 
-        setReviews(data || []);
-        setLoading(false);
+        if (error) {
+            toast({ title: t("testimonials.reviewsLoadError") });
+            setLoadingMore(false);
+            return;
+        }
+
+        setReviews((currentReviews) => [...currentReviews, ...(data ?? [])]);
+        setTotalReviews(count ?? totalReviews);
+        setLoadingMore(false);
     };
 
     return (
@@ -55,7 +99,7 @@ const ReviewPage = () => {
                 <div className="grid mt-9 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {reviews.map((review) => {
                         const imageSrc =
-                            review.images?.length > 0
+                            review.images && review.images.length > 0
                                 ? review.images[0]
                                 : "/images/user-default.png";
 
@@ -106,9 +150,13 @@ const ReviewPage = () => {
                 </div>
             )}
 
-
-
-
+            {!loading && reviews.length < totalReviews && (
+                <div className="mt-8 flex justify-center">
+                    <Button onClick={fetchMoreReviews} disabled={loadingMore}>
+                        {loadingMore ? t("testimonials.loadingMoreReviews") : t("testimonials.seeMoreReviews")}
+                    </Button>
+                </div>
+            )}
         </section>
     );
 };

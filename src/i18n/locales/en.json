@@ -16,8 +16,10 @@
     "cta2": "Learn More"
   },
   "packages": {
-    "title": "Tour Packages",
-    "subtitle": "Handpicked adventures for every traveler",
+    "eyebrow": "Thoughtfully planned, made for you",
+    "title": "Find your kind of getaway",
+    "collectionHeading": "Explore {{type}} journeys",
+    "subtitle": "Choose a travel style and discover journeys designed to make every moment count.",
     "filter": {
       "all": "All Packages",
       "adventure": "Adventure",
@@ -26,6 +28,27 @@
       "beach": "Beach",
       "mountain": "Mountain"
     },
+    "types": {
+      "domestic": "Domestic",
+      "international": "International",
+      "honeymoon": "Honeymoon",
+      "iv": "Industrial Visit",
+      "spiritualHeritage": "Spiritual & Heritage"
+    },
+    "typeDescriptions": {
+      "domestic": "Explore our tours across India.",
+      "international": "Discover destinations and sample itineraries beyond India.",
+      "honeymoon": "Find a relaxing escape made for two.",
+      "iv": "Educational group visits and industry experiences for students.",
+      "spiritualHeritage": "Explore sacred places and cultural heritage."
+    },
+    "backToTypes": "All Package Types",
+    "packageCount": "packages",
+    "searchPlaceholder": "Search packages by name or destination",
+    "noSearchResults": "No packages match your search.",
+    "nights": "nights",
+    "minimumGroup": "Minimum group: {{count}}",
+    "sample": "Sample",
     "from": "From",
     "days": "days",
     "bookNow": "Book Now",
@@ -78,7 +101,10 @@
     "enableVideoAudio": "Enable video audio",
     "muteVideoAudio": "Mute video audio",
     "videoUnavailable": "This video could not be played.",
-    "googleReviews": "Google Reviews"
+    "googleReviews": "Google Reviews",
+    "seeMoreReviews": "See more reviews",
+    "loadingMoreReviews": "Loading reviews...",
+    "reviewsLoadError": "Could not load reviews. Please try again."
   },
   "footer": {
     "about": "About ADN Adventures",

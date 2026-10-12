@@ -72,7 +72,11 @@ export const Header = () => {
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2 text-xl font-display font-bold text-primary"
             >
-              <img src="/adn logo.png" alt="ADN Adventures Logo" className="h-16 w-20 object-contain" />
+              <img
+                src={theme === 'dark' ? '/logo/adn white logo.png' : '/adn logo.png'}
+                alt="ADN Adventures Logo"
+                className="h-16 w-20 object-contain"
+              />
               {/* <h1>ADN <span className="text-foreground">Adventures</span></h1> */}
             </motion.div>
           </Link>

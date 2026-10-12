@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { packages } from '@/data/packages';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BookingForm } from '@/components/BookingForm';
 import {
   Calendar,
@@ -35,13 +36,14 @@ export const PackageDetails = () => {
     );
   }
 
+  const mediaCount = pkg.videos.length || pkg.gallery.length;
   const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % pkg.gallery.length);
+    setCurrentImageIndex((prev) => (prev + 1) % mediaCount);
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prev) =>
-      prev === 0 ? pkg.gallery.length - 1 : prev - 1
+      prev === 0 ? mediaCount - 1 : prev - 1
     );
   };
 
@@ -51,7 +53,7 @@ export const PackageDetails = () => {
         {/* Back Button */}
         <Button
           variant="ghost"
-          onClick={() => navigate('/packages')}
+          onClick={() => navigate(`/packages?type=${pkg.packageType}`)}
           className="mb-6"
         >
           <ChevronLeft className="mr-2 h-4 w-4" /> Back to Packages
@@ -63,23 +65,23 @@ export const PackageDetails = () => {
           animate={{ opacity: 1, y: 0 }}
           className="relative h-[500px] rounded-2xl overflow-hidden mb-8 group"
         >
-          <video
-            src={pkg.videos[currentImageIndex]}
-            autoPlay
-            loop
-            // muted
-            // controls
-            className={`absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 ${(
-              pkg.videos[currentImageIndex] == '/videos/kp1.mp4' ||
-              pkg.videos[currentImageIndex] == '/videos/kerala1.mp4'
-            ) ? '-rotate-90 w-[70%]' : 'w-full'} h-auto object-contain`}
-          />
-
-          {/* <img
-            src={pkg.gallery[currentImageIndex]}
-            alt={`${i18n.language === 'en' ? pkg.title : pkg.titleHi} - ${currentImageIndex + 1}`}
-            className="w-full h-full object-cover"
-          /> */}
+          {pkg.videos.length > 0 ? (
+            <video
+              src={pkg.videos[currentImageIndex % pkg.videos.length]}
+              autoPlay
+              loop
+              className={`absolute inset-1/2 -translate-x-1/2 -translate-y-1/2 ${(
+                pkg.videos[currentImageIndex % pkg.videos.length] === '/videos/kp1.mp4' ||
+                pkg.videos[currentImageIndex % pkg.videos.length] === '/videos/kerala1.mp4'
+              ) ? '-rotate-90 w-[70%]' : 'w-full'} h-auto object-contain`}
+            />
+          ) : (
+            <img
+              src={pkg.gallery[currentImageIndex % pkg.gallery.length] || pkg.image}
+              alt={`${i18n.language === 'en' ? pkg.title : pkg.titleHi} - ${currentImageIndex + 1}`}
+              className="h-full w-full object-cover"
+            />
+          )}
 
           {/* Overlay Text */}
           <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 via-transparent to-transparent">
@@ -89,7 +91,7 @@ export const PackageDetails = () => {
           </div>
 
           {/* Carousel Controls */}
-          {pkg.videos.length > 1 && (
+          {mediaCount > 1 && (
             <>
               <button
                 onClick={prevImage}
@@ -108,7 +110,7 @@ export const PackageDetails = () => {
 
               {/* Image Indicators */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
-                {pkg.videos.map((_, index) => (
+                {Array.from({ length: mediaCount }, (_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
@@ -136,8 +138,13 @@ export const PackageDetails = () => {
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="px-4 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold capitalize">
-                  {pkg.category}
+                  {t(`packages.types.${pkg.packageType}`)}
                 </span>
+                {pkg.isSample && (
+                  <span className="rounded-full bg-primary/10 px-4 py-1 text-sm font-semibold text-primary">
+                    {t('packages.sample')}
+                  </span>
+                )}
                 <span className="text-muted-foreground">
                   {pkg.duration} {t('packages.days')}
                 </span>
@@ -178,26 +185,48 @@ export const PackageDetails = () => {
               className="mb-8"
             >
               <h2 className="text-2xl font-display font-bold mb-6">Detailed Itinerary</h2>
-              <div className="space-y-4">
+              <Tabs
+                key={pkg.id}
+                defaultValue={String(pkg.itinerary[0]?.day ?? 1)}
+                className="w-full"
+              >
+                <TabsList className="mb-4 h-auto w-full justify-start gap-2 overflow-x-auto rounded-xl bg-muted p-2">
+                  {pkg.itinerary.map((day, index) => (
+                    <TabsTrigger
+                      key={index}
+                      value={String(day.day)}
+                      className="min-w-20 rounded-lg px-4 py-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                    >
+                      Day {day.day}
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
                 {pkg.itinerary.map((day, index) => (
-                  <div
+                  <TabsContent
                     key={index}
-                    className="p-6 bg-card rounded-2xl border border-border hover:border-primary/50 transition-colors"
+                    value={String(day.day)}
+                    className="mt-0 rounded-2xl border border-border bg-card p-6"
                   >
-                    <div className="flex items-center mb-2">
-                      <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold mr-3">
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 font-bold text-primary">
                         {day.day}
                       </div>
                       <h3 className="text-xl font-display font-semibold">
                         {i18n.language === 'en' ? day.title : day.titleHi}
                       </h3>
                     </div>
-                    <p className="text-muted-foreground ml-13">
-                      {i18n.language === 'en' ? day.description : day.descriptionHi}
-                    </p>
-                  </div>
+                    <ul className="mt-4 list-disc space-y-2 pl-6 text-muted-foreground">
+                      {(i18n.language === 'en' ? day.description : day.descriptionHi)
+                        .split(/[,;]/)
+                        .map((point) => point.trim())
+                        .filter(Boolean)
+                        .map((point, pointIndex) => (
+                          <li key={pointIndex}>{point}</li>
+                        ))}
+                    </ul>
+                  </TabsContent>
                 ))}
-              </div>
+              </Tabs>
             </motion.div>
 
             {/* Inclusions/Exclusions */}
@@ -269,11 +298,11 @@ export const PackageDetails = () => {
                   </div>
                   <div className="flex items-center text-sm">
                     <MapPin className="h-5 w-5 text-primary mr-3" />
-                    <span>India</span>
+                    <span>{pkg.location ?? 'India'}</span>
                   </div>
                   <div className="flex items-center text-sm">
                     <Users className="h-5 w-5 text-primary mr-3" />
-                    <span>Small groups (min 4)</span>
+                    <span>Min {pkg.min} Members</span>
                   </div>
                 </div>
 
@@ -285,9 +314,9 @@ export const PackageDetails = () => {
                   {t('packages.bookNow')}
                 </Button>
 
-                <p className="text-xs text-center text-muted-foreground mt-4">
+                {/* <p className="text-xs text-center text-muted-foreground mt-4">
                   Free cancellation up to 7 days before departure
-                </p>
+                </p> */}
               </div>
             </motion.div>
           </div>
@@ -297,7 +326,6 @@ export const PackageDetails = () => {
       {/* Booking Form Modal */}
       {showBookingForm && (
         <BookingForm
-          packageId={pkg.id}
           packageTitle={i18n.language === 'en' ? pkg.title : pkg.titleHi}
           onClose={() => setShowBookingForm(false)}
         />
