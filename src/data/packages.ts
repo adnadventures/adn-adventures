@@ -140,104 +140,6 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
   },
 
   {
-    id: 'rajasthan-royal',
-    title: 'Royal Rajasthan Heritage',
-    titleHi: 'राजस्थान शाही विरासत',
-    description: 'Discover the royal heritage of Rajasthan with magnificent forts, palaces, and desert landscapes',
-    descriptionHi: 'शानदार किलों, महलों और रेगिस्तानी परिदृश्य के साथ राजस्थान की शाही विरासत की खोज करें',
-    price: 5555,
-    duration: 4,
-    min: 4,
-    category: 'cultural',
-    image: 'https://images.unsplash.com/photo-1477587458883-47145ed94245',
-    gallery: [
-      '/images/rr1.jpg',
-      '/images/rr2.jpg',
-      '/images/rr3.jpg'
-    ],
-    videos: [
-      '/videos/rr1.mp4'
-    ],
-    highlights: [
-      'Amber Fort, Jaipur',
-      'City Palace and Hawa Mahal',
-      'Mehrangarh Fort, Jodhpur',
-      'Camel Safari in Thar Desert',
-      'Traditional Rajasthani Dinner'
-    ],
-    highlightsHi: [
-      'आमेर किला, जयपुर',
-      'सिटी पैलेस और हवा महल',
-      'मेहरानगढ़ किला, जोधपुर',
-      'थार रेगिस्तान में ऊंट सफारी',
-      'पारंपरिक राजस्थानी रात्रिभोज'
-    ],
-    itinerary: [
-      {
-        day: 1,
-        title: 'Arrival in Jaipur',
-        titleHi: 'जयपुर में आगमन',
-        description: 'Welcome to the Pink City, transfer to hotel, evening free for leisure',
-        descriptionHi: 'गुलाबी शहर में स्वागत है, होटल में स्थानांतरण, शाम को आराम के लिए मुक्त'
-      },
-      {
-        day: 2,
-        title: 'Jaipur Sightseeing',
-        titleHi: 'जयपुर दर्शनीय स्थल',
-        description: 'Visit Amber Fort, City Palace, and Hawa Mahal',
-        descriptionHi: 'आमेर किला, सिटी पैलेस, और हवा महल की यात्रा करें'
-      },
-      {
-        day: 3,
-        title: 'Jodhpur Exploration',
-        titleHi: 'जोधपुर अन्वेषण',
-        description: 'Travel to Jodhpur, visit Mehrangarh Fort and local markets',
-        descriptionHi: 'जोधपुर की यात्रा करें, मेहरानगढ़ किला और स्थानीय बाजारों की यात्रा करें'
-      },
-      {
-        day: 4,
-        title: 'Thar Desert Camel Safari',
-        titleHi: 'थार रेगिस्तान ऊंट सफारी',
-        description: 'Experience a camel safari in the Thar Desert, enjoy traditional Rajasthani dinner',
-        descriptionHi: 'थार रेगिस्तान में ऊंट सफारी का अनुभव करें, पारंपरिक राजस्थानी रात्रिभोज का आनंद लें'
-      },
-      {
-        day: 5,
-        title: 'Departure from Jodhpur',
-        titleHi: 'जोधपुर से प्रस्थान',
-        description: 'Check out from hotel and transfer to airport or next destination',
-        descriptionHi: 'होटल से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
-      }
-
-    ],
-    included: [
-      'Heritage hotel accommodation',
-      'Daily breakfast',
-      'All entrance fees',
-      'Desert safari with cultural program',
-      'Expert local guides'
-    ],
-    includedHi: [
-      'विरासत होटल आवास',
-      'दैनिक नाश्ता',
-      'सभी प्रवेश शुल्क',
-      'सांस्कृतिक कार्यक्रम के साथ रेगिस्तान सफारी',
-      'विशेषज्ञ स्थानीय गाइड'
-    ],
-    excluded: [
-      'Airfare',
-      'Lunch and dinner',
-      'Tips and gratuities',
-      'Optional activities'
-    ],
-    excludedHi: [
-      'हवाई किराया',
-      'दोपहर का भोजन और रात का खाना',
-      'टिप्स और ग्रेच्युटी',
-      'वैकल्पिक गतिविधियाँ'
-    ]
-  },
-  {
     id: 'kerala-backwaters',
     title: 'Kerala Backwaters Bliss',
     titleHi: 'केरल बैकवाटर आनंद',
@@ -349,9 +251,9 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
     titleHi: 'मणाली स्वर्ग',
     description: 'Experience the breathtaking beauty of Manali with snow-capped mountains, ancient lakes, and Mughal gardens',
     descriptionHi: 'बर्फ से ढके पहाड़ों, प्राचीन झीलों, और मुगल बागानों के साथ मणाली की सांस लेने वाली सुंदरता का अनुभव करें',
-    price: 4500,
-    duration: 3,
-    min: 4,
+    price: 5500,
+    duration: 5,
+    min: 16,
     category: 'mountain',
     image: '/manali.jpg',
     gallery: [
@@ -379,65 +281,69 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
     itinerary: [
       {
         day: 1,
-        title: 'Arrival in Manali',
-        titleHi: 'मणाली में आगमन',
-        description: 'Arrive at Manali, transfer to hotel, evening free for leisure',
-        descriptionHi: 'मणाली में पहुंचें, होटल में स्थानांतरण, शाम को आराम के लिए मुक्त'
+        title: 'Arrival in Delhi and Transfer to Manali',
+        titleHi: 'दिल्ली में आगमन और मणाली के लिए स्थानांतरण',
+        description: 'Delhi to Manali , Transfer to hotel, Overnight stay at hotel',
+        descriptionHi: 'दिल्ली से मणाली, होटल में स्थानांतरण, होटल में रात भर ठहराव'
       },
       {
         day: 2,
         title: 'Manali Sightseeing',
         titleHi: 'मणाली दर्शनीय स्थल',
-        description: 'Visit Solang Valley, Hadimba Temple, and Manu Temple',
-        descriptionHi: 'सोलंग घाटी, हडिम्बा मंदिर, और मनु मंदिर की यात्रा करें'
+        description: 'Pick up from volvo bus stand, Hotel check-in & Freshen up, Hadimba Devi Temple, Van Vihar, Tibetan Monastery, Mall Road, Manu Temple(If Time Allows), Overnight stay at Manali hotel',
+        descriptionHi: 'वोल्वो बस स्टैंड से पिकअप, होटल चेक-इन और ताजगी, हडिम्बा देवी मंदिर, वन विहार, तिब्बती मठ, मॉल रोड, मनु मंदिर (यदि समय अनुमति देता है), मणाली होटल में रात भर ठहराव'
       },
       {
         day: 3,
-        title: 'Dal Lake & Mughal Gardens',
-        titleHi: 'डल झील और मुगल बागान',
-        description: 'Shikara ride on Dal Lake and explore Mughal Gardens',
-        descriptionHi: 'डल झील पर शिकारा सवारी और मुगल बागानों का अन्वेषण करें'
+        title: 'Sollang valley sightseeing',
+        titleHi: 'सोलंग घाटी दर्शनीय स्थल',
+        description: 'Solang valley, Snow Activities, Atal Tunnel, Sissu village, Sissu Waterfalls, Rohtang Pass is subject to permit availability and government regulations. If open it will be included as additional cost, Dinner at hotel, Overnight stay at Manali hotel',
+        descriptionHi: 'सोलंग घाटी, बर्फ गतिविधियाँ, अटल सुरंग, सिस्सू गांव, सिस्सू झरने, रोहतांग पास अनुमति उपलब्धता और सरकारी नियमों के अधीन है। यदि खुला है तो इसे अतिरिक्त लागत के रूप में शामिल किया जाएगा, होटल में रात का खाना, मणाली होटल में रात भर ठहराव'
       },
       {
         day: 4,
-        title: 'Pahalgam Valley Trip',
-        titleHi: 'पाहलगाम घाटी यात्रा',
-        description: 'Day trip to Pahalgam Valley, enjoy scenic views and local culture',
-        descriptionHi: 'पाहलगाम घाटी की दिन भर की यात्रा, सुंदर दृश्य और स्थानीय संस्कृति का आनंद लें'
+        title: 'Kullu Nagar Sightseeing',
+        titleHi: 'कुल्लू नगर दर्शनीय स्थल',
+        description: 'Kullu valley view point, River Rafting Point, Paragliding Point, Kullu shawl Factory, Vaishno Devi Temple, Nagar Castle, Tripura sundari Temple, Overnight Volvo bus to Delhi',
+        descriptionHi: 'कुल्लू घाटी व्यू पॉइंट, रिवर राफ्टिंग पॉइंट, पैराग्लाइडिंग पॉइंट, कुल्लू शॉल फैक्ट्री, वैष्णो देवी मंदिर, नगर किला, त्रिपुरा सुंदरी मंदिर, दिल्ली के लिए रात भर वोल्वो बस'
       },
       {
         day: 5,
         title: 'Departure from Manali',
         titleHi: 'मणाली से प्रस्थान',
-        description: 'Check out from hotel and transfer to airport or next destination',
+        description: 'Reach Delhi in the morning, Tour ends with beautiful memories of Manali',
         descriptionHi: 'होटल से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
       }
     ],
     included: [
       'Hotel accommodation in Manali',
-      'Daily breakfast and dinner',
+      'Pick up and drop from volvo bus stand',
+      'Delhi to Manali and Manali to Delhi Volvo bus tickets',
+      'Breakfast and Dinner',
       'All transfers and sightseeing',
-      'Shikara ride on Dal Lake',
-      'Professional tour guide'
     ],
     includedHi: [
       'मणाली में होटल आवास',
-      'दैनिक नाश्ता और रात का खाना',
-      'सभी स्थानांतरण और दर्शनीय स्थल',
-      'डल झील पर शिकारा सवारी',
-      'पेशेवर टूर गाइड'
+      'वोल्वो बस स्टैंड से पिकअप और ड्रॉप',
+      'दिल्ली से मणाली और मणाली से दिल्ली वोल्वो बस टिकट',
+      'नाश्ता और रात का खाना',
+      'सभी स्थानांतरण और दर्शनीय स्थल'
     ],
     excluded: [
       'Flight tickets',
       'Lunch and personal expenses',
       'Adventure sports charges',
-      'Travel insurance'
+      'Travel insurance',
+      'Entry fees to monuments and parks',
+      'Any services not mentioned in the inclusions'
     ],
     excludedHi: [
       'हवाई टिकट',
       'दोपहर का भोजन और व्यक्तिगत खर्च',
       'साहसिक खेल शुल्क',
-      'यात्रा बीमा'
+      'यात्रा बीमा',
+      'मंदिरों और पार्कों के लिए प्रवेश शुल्क',
+      'किसी भी सेवाओं का शुल्क जो सूचिबद्ध न हो'
     ]
   },
 
@@ -466,42 +372,42 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
       'Waterfalls and nature walks',
       'Wildlife spotting',
       'Local Munnar cuisine tasting',
-      'Trekking in Western Ghats'
+      'Kollukumalai Jeep Safari and Zip Line Adventure'
     ],
     highlightsHi: [
       'चाय बागानों की यात्रा',
       'झरनों और प्रकृति की सैर',
       'वन्यजीवों का अवलोकन',
       'स्थानीय मुनार व्यंजन चखना',
-      'पश्चिमी घाटों में ट्रेकिंग'
+      'कोलुकुमलाई जीप सफारी और ज़िप लाइन एडवेंचर'
     ],
     itinerary: [
       {
         day: 1,
         title: 'Local Sightseeing ',
         titleHi: 'स्थानीय दर्शनीय स्थल',
-        description: 'Full day local sightseeing in Munnar, visit tea plantations and waterfalls',
-        descriptionHi: 'मुनार में पूरे दिन की स्थानीय दर्शनीय स्थल यात्रा, चाय बागानों और झरनों की यात्रा करें'
+        description: 'Photo point, Mattupetty Dam, Echo Point, Pullu Medu Elephant view point, Kundala Dam & Lake, Top Station, Overnight stay at Munnar',
+        descriptionHi: 'फोटो पॉइंट, मट्टुपेट्टी डैम, इको पॉइंट, पुल्लू मेड़ू हाथी दृश्य बिंदु, कुंडाला डैम और झील, टॉप स्टेशन, मुनार में रात भर ठहराव'
       },
       {
         day: 2,
         title: 'Adventures & Nature Walks',
         titleHi: 'साहसिक और प्रकृति की सैर',
-        description: 'Jeep safari in kolukumalai, periyakanal waterfalls, and nature walks in the Western Ghats',
-        descriptionHi: 'कोलुकुमलाई में जीप सफारी, पेरियाकनाल झरने, और पश्चिमी घाटों में प्रकृति की सैर'
+        description: 'Kolukumalai Jeep Safari, Longest Zip Line, Periyakanal Waterfalls, Gap Road view point, Botanical Garden, Hydel Park, Overnight stay at Munnar',
+        descriptionHi: 'कोलुकुमलाई जीप सफारी, सबसे लंबी ज़िप लाइन, पेरीयाकनाल झरने, गैप रोड व्यू पॉइंट, बोटैनिकल गार्डन, हाइडेल पार्क, मुनार में रात भर ठहराव'
       },
       {
         day: 3,
         title: 'Cultural & Scenic Spots',
         titleHi: 'सांस्कृतिक और सुंदर स्थल',
-        description: 'Tea museum visit, Ripple waterfalls, Hanging bridge, Ponmudi Dam,',
-        descriptionHi: 'चाय संग्रहालय की यात्रा, रिपल झरने, हैंगिंग ब्रिज, पोनमुडी डैम'
+        description: 'Tea museum visit, Ripple waterfalls, Chunnayammakal Waterfalls, Hanging Bridge, Ponmudi Dam, Tour concludes with Departure from Munnar',
+        descriptionHi: 'चाय संग्रहालय की यात्रा, रिपल झरने, चुनयम्माकल झरने, हैंगिंग ब्रिज, पोनमुडी डैम, मुनार से प्रस्थान के साथ यात्रा समाप्त होती है'
       },
     ],
     included: [
       'Deluxe hotel accommodation in Munnar',
-      'Daily breakfast and dinner',
-      'Dindugul to Dindugul Pickup and drop',
+      'Breakfast and Dinner',
+      'Dindugul or Theni Pickup and drop',
       'Private Car/ Cab for Entire Trip',
       'Daily sightseeing as per itinerary',
       'Breakfast and Dinner ',
@@ -511,7 +417,7 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
     includedHi: [
       'मुनार में डेलक्स होटल आवास',
       'दैनिक नाश्ता और रात का खाना',
-      'दिंदुगुल से दिंदुगुल तक का पिकअप और ड्रॉप',
+      'दिंदुगुल या तेनी से पिकअप और ड्रॉप',
       'निजी कार/कैब के लिए संपूर्ण यात्रा',
       'पेशेवर टूर गाइड',
       'दैनिक दर्शनीय स्थल',
@@ -521,11 +427,13 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
     ],
     excluded: [
       'Entrance fees to monuments and parks',
+      'Adventure Activity Charges (Zip-line)',
       'Lunch and personal expenses',
       'Any services not mentioned in the inclusions',
     ],
     excludedHi: [
       'स्मारकों और पार्कों में प्रवेश शुल्क',
+      'साहसिक गतिविधि शुल्क (ज़िप-लाइन)',
       'दोपहर का भोजन और व्यक्तिगत खर्च',
       'कोई भी सेवाएं जो समावेश में उल्लेख नहीं की गई हैं'
     ]
