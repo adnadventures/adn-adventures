@@ -77,6 +77,14 @@ export const Footer = () => {
               </li>
               <li>
                 <Link
+                  to="/about"
+                  className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
+                >
+                  {t('nav.about')}
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/packages"
                   className="text-sm text-primary-foreground/80 transition-colors hover:text-primary-foreground"
                 >
