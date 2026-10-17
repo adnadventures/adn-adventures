@@ -265,18 +265,18 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
       '/videos/man1.mp4'
     ],
     highlights: [
-      'Solang Valley Adventure Sports',
-      'Dal Lake Shikara Ride',
-      'Gulmarg Gondola Experience',
-      'Mughal Garden Tours',
-      'Pahalgam Valley Trip'
+      'Manali Sightseeing',
+      'sissu village and waterfalls',
+      'Snow activities',
+      'Atal Tunnel experience',
+      'Kullu valley and paragliding'
     ],
     highlightsHi: [
-      'सोलंग घाटी साहसिक खेल',
-      'डल झील शिकारा सवारी',
-      'गुलमर्ग गोंडोला अनुभव',
-      'मुगल बागान पर्यटन',
-      'पाहलगाम घाटी यात्रा'
+      'मणाली दर्शनीय स्थल',
+      'सिस्सू गांव और झरने',
+      'बर्फ गतिविधियाँ',
+      'अटल सुरंग अनुभव',
+      'कुल्लू घाटी और पैराग्लाइडिंग'
     ],
     itinerary: [
       {
@@ -438,99 +438,6 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
       'कोई भी सेवाएं जो समावेश में उल्लेख नहीं की गई हैं'
     ]
   },
-
-  {
-    id: 'spiritual-varanasi',
-    title: 'Spiritual Varanasi & Ganga',
-    titleHi: 'आध्यात्मिक वाराणसी और गंगा',
-    description: 'Experience the spiritual heart of India with ancient temples, Ganga Aarti, and sacred rituals',
-    descriptionHi: 'प्राचीन मंदिरों, गंगा आरती, और पवित्र अनुष्ठानों के साथ भारत के आध्यात्मिक हृदय का अनुभव करें',
-    price: 8999,
-    duration: 4,
-    min: 4,
-    category: 'spiritual',
-    image: '/varanasi.jpg',
-    gallery: [
-      '/images/Varanasi1.jpg',
-      '/images/Varanasi2.jpg',
-      '/images/Varanasi3.jpg'
-    ],
-    videos: [
-      '/videos/var1.mp4'
-    ],
-    highlights: [
-      'Sunrise boat ride on Ganges',
-      'Evening Ganga Aarti ceremony',
-      'Visit Kashi Vishwanath Temple',
-      'Sarnath Buddhist pilgrimage',
-      'Yoga and meditation session'
-    ],
-    highlightsHi: [
-      'गंगा पर सूर्योदय नाव की सवारी',
-      'शाम की गंगा आरती समारोह',
-      'काशी विश्वनाथ मंदिर की यात्रा',
-      'सारनाथ बौद्ध तीर्थयात्रा',
-      'योग और ध्यान सत्र'
-    ],
-    itinerary: [
-      {
-        day: 1,
-        title: 'Arrival in Varanasi',
-        titleHi: 'वाराणसी में आगमन',
-        description: 'Transfer to hotel, evening Ganga Aarti at Dashashwamedh Ghat',
-        descriptionHi: 'होटल में स्थानांतरण, दशाश्वमेध घाट पर शाम की गंगा आरती'
-      },
-      {
-        day: 2,
-        title: 'Varanasi Sightseeing',
-        titleHi: 'वाराणसी दर्शनीय स्थल',
-        description: 'Visit Kashi Vishwanath Temple, Sarnath, and local markets',
-        descriptionHi: 'काशी विश्वनाथ मंदिर, सारनाथ, और स्थानीय बाजारों की यात्रा करें'
-      },
-      {
-        day: 3,
-        title: 'Yoga and Meditation',
-        titleHi: 'योग और ध्यान',
-        description: 'Participate in yoga and meditation sessions by the Ganges',
-        descriptionHi: 'गंगा के किनारे योग और ध्यान सत्र में भाग लें'
-      },
-      {
-        day: 4,
-        title: 'Departure from Varanasi',
-        titleHi: 'वाराणसी से प्रस्थान',
-        description: 'Check out from hotel and transfer to airport or next destination',
-        descriptionHi: 'होटल से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
-      }
-    ],
-    included: [
-      'Hotel near ghats',
-      'Daily breakfast',
-      'Boat rides on Ganges',
-      'Temple visits with guide',
-      'Yoga session'
-    ],
-    includedHi: [
-      'घाट के पास होटल',
-      'दैनिक नाश्ता',
-      'गंगा पर नाव की सवारी',
-      'गाइड के साथ मंदिर यात्रा',
-      'योग सत्र'
-    ],
-    excluded: [
-      'Transportation to Varanasi',
-      'Lunch and dinner',
-      'Puja offerings',
-      'Shopping'
-    ],
-    excludedHi: [
-      'वाराणसी के लिए परिवहन',
-      'दोपहर का भोजन और रात का खाना',
-      'पूजा की पेशकश',
-      'खरीदारी'
-    ]
-  },
-
-
   {
     id: 'wayanad-nature',
     title: 'Wayanad Nature Escape',
@@ -624,104 +531,95 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
 
 
   {
-    id: 'himalayan-adventure',
-    title: 'Himalayan Adventure Trek',
-    titleHi: 'हिमालयन साहसिक ट्रेक',
-    description: 'Challenge yourself with thrilling mountain treks, experience local Himalayan culture',
-    descriptionHi: 'रोमांचक पर्वत ट्रेक के साथ खुद को चुनौती दें, स्थानीय हिमालयी संस्कृति का अनुभव करें',
-    price: 42000,
-    duration: 10,
-    min: 4,
-    category: 'adventure',
-    image: '/trek.jpg',
+    id: 'Coorg',
+    title: 'Coorg Coffee & Nature',
+    titleHi: 'कोर्ग कॉफी और प्रकृति',
+    description: 'Experience the scenic beauty of Coorg with coffee plantations and lush greenery',
+    descriptionHi: 'कॉफी बागानों और लग्ज़ ग्रीनरी के साथ कोर्ग की स्केनिक खुशबू का अनुभव करें',
+    price: 4100,
+    duration: 2,
+    min: 12,
+    category: 'nature',
+    image: '/Coorg.jpg',
     gallery: [
-      '/images/trek1.jpg',
-      '/images/trek2.jpg',
-      '/images/trek3.jpg'
+      '/images/Coorg1.jpg',
+      '/images/Coorg2.jpg',
+      '/images/Coorg3.jpg'
     ],
     videos: [
       '/videos/trek1.mp4'
     ],
     highlights: [
-      'Moderate to challenging treks',
-      'Mountain village homestays',
-      'Sunrise views from peaks',
-      'Local cuisine experience',
-      'Professional trekking guides'
+      'Visit coffee plantations',
+      'Waterfalls and nature walks',
+      'Wildlife spotting',
+      'Local Coorg cuisine tasting',
+      'Trekking in Western Ghats'
     ],
     highlightsHi: [
-      'मध्यम से चुनौतीपूर्ण ट्रेक',
-      'पर्वत गांव होमस्टे',
-      'चोटियों से सूर्योदय के दृश्य',
-      'स्थानीय व्यंजन अनुभव',
-      'पेशेवर ट्रेकिंग गाइड'
+      'कोफी बागानों की यात्रा',
+      'जलपान और प्रकृति के चलना',
+      'वन्यजीव देखना',
+      'स्थानीय कोर्ग व्यंजन चखना',
+      'पश्चिमी घाटों में ट्रेकिंग'
     ],
     itinerary: [
       {
         day: 1,
-        title: 'Base Camp Arrival',
-        titleHi: 'बेस कैंप आगमन',
-        description: 'Drive to base camp, acclimatization, gear check',
-        descriptionHi: 'बेस कैंप की ड्राइव, अनुकूलन, गियर जाँच'
+        title: 'coorg Arrival and Local Sightseeing',
+        titleHi: 'कोर्ग आगमन और स्थानीय दर्शनीय स्थल',
+        description: 'Golden Temple, Dubare Elephant camp, Harangi dam, Fish Lake, Nisarghana temple, Overnight stay at Coorg',
+        descriptionHi: 'गोल्डन टेम्पल, डुबारे एलीफेंट कैंप, हरंगी डैम, फिश लेक, निसरघना मंदिर, कोर्ग में रात भर ठहराव'
       },
       {
         day: 2,
-        title: 'Trekking and Exploration',
-        titleHi: 'ट्रेकिंग और अन्वेषण',
-        description: 'Begin trek to higher altitudes, explore mountain trails',
-        descriptionHi: 'ऊंचाई पर ट्रेक शुरू करें, पर्वत ट्रेल का अन्वेषण करें'
-      },
-      {
-        day: 3,
-        title: 'Summit and Return',
-        titleHi: 'शिखर और वापसी',
-        description: 'Reach summit, enjoy panoramic views, descend to base camp',
-        descriptionHi: 'शिखर तक पहुंचें, व्यापक दृश्य का आनंद लें, बेस कैंप पर उतरें'
-      },
-      {
-        day: 4,
-        title: 'Departure from Base Camp',
-        titleHi: 'बेस कैंप से प्रस्थान',
-        description: 'Pack up, transfer to next destination or airport',
-        descriptionHi: 'पैक करें, अगले गंतव्य या हवाई अड्डे के लिए स्थानांतरण करें'
+        title: 'Sightseeing and departure',
+        titleHi: 'दर्शनीय स्थल और प्रस्थान',
+        description: 'Mandalapatti View Point, Madikeri Fort, Omkareshwara Temple, Abbey Falls, Raja Seat, Drop at Mysore',
+        descriptionHi: 'मंडलापट्टी व्यू पॉइंट, मडिकेरी किला, ओमकारेश्वर मंदिर, एबी फॉल्स, राजा सीट, मैसूर में ड्रॉप'
       }
+      
     ],
     included: [
-      'Trekking permits',
-      'All meals during trek',
-      'Camping equipment',
-      'Experienced guides and porters',
-      'First aid and emergency support'
+      'Mysore pickup and drop',
+      '1 night hotel accommodation in Coorg',
+      '2 breakfast and 1 dinner',
+      'coorg local sightseeing as per itinerary',
+      'Toll, parking, fuel charges and driver allowance',
+      'Coorg Jeep Safari',
+      'All applicable taxes and service charges'
     ],
     includedHi: [
-      'ट्रेकिंग परमिट',
-      'ट्रेक के दौरान सभी भोजन',
-      'कैंपिंग उपकरण',
-      'अनुभवी गाइड और कुली',
-      'प्राथमिक चिकित्सा और आपातकालीन सहायता'
+      'मैसूर पिकअप और ड्रॉप',
+      '1 रात का होटल आवास कोर्ग में',
+      '2 नाश्ता और 1 रात का खाना',
+      'कोर्ग स्थानीय दर्शनीय स्थल योजना के अनुसार',
+      'टॉल, पार्किंग, ईंधन शुल्क और ड्राइवर की अनुमति',
+      'कोर्ग जीप सैफारी',
+      'सभी प्रयुक्त कर और सेवा शुल्क'
     ],
     excluded: [
-      'Personal trekking gear',
-      'Travel insurance',
-      'Tips for staff',
-      'Extra snacks and beverages'
+      'Personal Expenses',
+      'Services not mentioned in the inclusions',
+      'Entry fees to monuments and parks',
+      'Adventure Activity Charges'
     ],
     excludedHi: [
-      'व्यक्तिगत ट्रेकिंग गियर',
-      'यात्रा बीमा',
-      'स्टाफ के लिए टिप्स',
-      'अतिरिक्त स्नैक्स और पेय पदार्थ'
+      'व्यक्तिगत खर्च',
+      'इन्क्लूजन में नहीं उल्लिखित सेवाएं',
+      'मंदिरों और पार्कों के लिए प्रवेश शुल्क',
+      'एडवेंचर एक्टिविटी शुल्क'
     ]
   },
   {
-    id: 'goa-beaches',
+    id: 'Goa',
     title: 'Goa Beach Paradise',
     titleHi: 'गोवा बीच पैराडाइज',
     description: 'Sun, sand, and sea - experience the vibrant beach life of Goa with water sports and nightlife',
     descriptionHi: 'सूरज, रेत और समुद्र - जल खेल और रात्रि जीवन के साथ गोवा के जीवंत समुद्र तट जीवन का अनुभव करें',
-    price: 4444,
+    price: 3200,
     duration: 3,
-    min: 6,
+    min: 16,
     category: 'beach',
     image: '/goa.jpg',
     gallery: [
@@ -751,168 +649,68 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
         day: 1,
         title: 'Arrival in Goa',
         titleHi: 'गोवा में आगमन',
-        description: 'Airport transfer, beach resort check-in, evening beach walk',
-        descriptionHi: 'हवाई अड्डा स्थानांतरण, बीच रिसॉर्ट चेक-इन, शाम की समुद्र तट सैर'
+        description: 'Pickup from airport/railway station, Hotel check-in, Fort Aguada, Sinquerim Beach, Candolim Beach, Calangute Beach, Baga Beach, Anjuna Beach, Vagator Beach, Chapora Fort (Dil Chahta Hai Fort), Overnight stay at Goa hotel',
+        descriptionHi: 'हवाई अड्डे/रेलवे स्टेशन से पिकअप, होटल चेक-इन, फोर्ट अगुआड़ा, सिंक्वेरिम बीच, कैंडोलिम बीच, कलंगुट बीच, बागा बीच, अंजुना बीच, वागाटोर बीच, चपोरा फोर्ट (दिल चाहता है फोर्ट), गोवा होटल में रात भर ठहराव'
       },
       {
         day: 2,
         title: 'Goa Beach Activities',
         titleHi: 'गोवा बीच गतिविधियाँ',
-        description: 'Enjoy water sports, beach hopping, and local seafood',
-        descriptionHi: 'जल खेल, बीच होपिंग, और स्थानीय समुद्री भोजन का आनंद लें'
+        description: 'Breakfast at hotel, Dona Paula view point, Miramar Beach, Panjim city drive, Bascilica of Bom Jesus, Se Cathedral Church, Mangueshi Temple, Goa Boat Cruise(optional), Shopping at Panjim, Return to hotel, Overnight stay at Goa hotel',
+        descriptionHi: 'होटल में नाश्ता, डोना पाउला व्यू पॉइंट, मिरामार बीच, पणजी शहर ड्राइव, बासिलिका ऑफ बॉम जीसस, सी कैथेड्रल चर्च, मंगेशी मंदिर, गोवा बोट क्रूज (वैकल्पिक), पणजी में खरीदारी, होटल लौटें, गोवा होटल में रात भर ठहराव'
       },
       {
         day: 3,
-        title: 'Old Goa and Culture',
-        titleHi: 'पुरानी गोवा और संस्कृति',
-        description: 'Visit Old Goa churches, spice plantations, and local markets',
+        title: 'Goa Adventure & Departure',
+        titleHi: 'गोवा एडवेंचर और प्रस्थान',
+        description: 'Breakfast and hotel check-out, Water sports activities at calangute/Baga (Optional), Parasailing, Jetski, Banana Ride, Bumper Ride, Free time for shopping or Beach relaxation, Drop at Goa airport/railway station for departure',
         descriptionHi: 'पुरानी गोवा के चर्च, मसाला बागान, और स्थानीय बाजारों की यात्रा करें'
-      },
-      {
-        day: 4,
-        title: 'Sunset Cruise and Relaxation',
-        titleHi: 'सूर्यास्त क्रूज और विश्राम',
-        description: 'Enjoy a sunset cruise on Mandovi River and relax at the beach',
-        descriptionHi: 'मांडवी नदी पर सूर्यास्त क्रूज का आनंद लें और समुद्र तट पर विश्राम करें'
-      },
-      {
-        day: 5,
-        title: 'Departure from Goa',
-        titleHi: 'गोवा से प्रस्थान',
-        description: 'Check out from beach resort and transfer to airport or next destination',
-        descriptionHi: 'बीच रिसॉर्ट से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
       }
     ],
     included: [
-      '3 star resort stay',
-      'Breakfast and Dinner',
-      'One way Train Ticket (Mangalore to Goa)',
-      'Two wheeler or car',
-      'Package can be customizable'
+      '2 nights hotel accommodation in Goa',
+      '3 breakfast and 2 dinner',
+      'Two wheelers for sightseeing in Goa',
+      'Private cab for sightseeing and transfers',
+      'All applicable taxes and service charges',
+      'Driver allowance, toll, parking, and fuel charges'
     ],
     includedHi: [
-      'समुद्र तट रिसॉर्ट प्रवास',
-      'दैनिक नाश्ता',
-      'जल खेल पैकेज',
-      'नदी क्रूज',
-      '2 दिनों के लिए स्कूटर किराया'
+      'गोवा में 2 रात का होटल आवास',
+      '3 नाश्ता और 2 रात का खाना',
+      'गोवा में दर्शनीय स्थलों के लिए दोपहिया वाहन',
+      'दर्शनीय स्थलों और स्थानांतरण के लिए निजी कैब',
+      'सभी लागू कर और सेवा शुल्क',
+      'ड्राइवर की अनुमति, टॉल, पार्किंग और ईंधन शुल्क'
     ],
     excluded: [
-      'Airfare',
-      'Lunch and dinner',
-      'Club entry fees',
-      'Additional water sports'
+      'Flight/train tickets (Extra price for the tickets)',
+      'Lunch and personal expenses',
+      'Pickup and drop from airport/railway station (Extra price for the service)',
+      'Water sports activities (Extra price for the activities)',
+      'Any services not mentioned in the inclusions',
+      'Boat cruise (Optional)',
+      'Shopping and souvenirs'
     ],
     excludedHi: [
-      'हवाई किराया',
-      'दोपहर का भोजन और रात का खाना',
-      'क्लब प्रवेश शुल्क',
-      'अतिरिक्त जल खेल'
+      'हवाई/रेल टिकट (टिकटों के लिए अतिरिक्त मूल्य)',
+      'दोपहर का भोजन और व्यक्तिगत खर्च',
+      'हवाई अड्डे/रेलवे स्टेशन से पिकअप और ड्रॉप (सेवा के लिए अतिरिक्त मूल्य)',
+      'जल खेल गतिविधियाँ (गतिविधियों के लिए अतिरिक्त मूल्य)',
+      'कोई भी सेवाएँ जो समावेश में उल्लिखित नहीं हैं',
+      'बोट क्रूज (वैकल्पिक)',
+      'खरीदारी और स्मृति चिन्ह'
     ]
   },
-
-  {
-    id: 'Coorg',
-    title: 'Coorg Coffee & Nature',
-    titleHi: 'कोर्ग कॉफी और प्रकृति',
-    description: 'Explore the lush coffee plantations, waterfalls, and wildlife of Coorg, the Scotland of India',
-    descriptionHi: 'कोर्ग के हरे-भरे कॉफी बागानों, झरनों, और वन्यजीवों का अन्वेषण करें, जो भारत का स्कॉटलैंड है',
-    price: 3499,
-    duration: 2,
-    min: 4,
-    category: 'nature',
-    image: '/Coorg.jpg',
-    gallery: [
-      '/images/Coorg1.jpg',
-      '/images/Coorg2.jpg',
-      '/images/Coorg3.jpg'
-    ],
-    videos: [
-      '/videos/coorg1.mp4'
-    ],
-    highlights: [
-      'Visit coffee plantations',
-      'Waterfalls and nature walks',
-      'Wildlife spotting',
-      'Local Coorg cuisine tasting',
-      'Trekking in Western Ghats'
-    ],
-    highlightsHi: [
-      'कोफी बागानों की यात्रा',
-      'झरने और प्रकृति की सैर',
-      'वन्यजीव देखना',
-      'स्थानीय कोर्ग व्यंजन चखना',
-      'पश्चिमी घाटों में ट्रेकिंग'
-    ],
-    itinerary: [
-      {
-        day: 1,
-        title: 'Arrival in Coorg',
-        titleHi: 'कोर्ग में आगमन',
-        description: 'Transfer to hotel, evening nature walk',
-        descriptionHi: 'होटल में स्थानांतरण, शाम की प्रकृति सैर'
-      },
-      {
-        day: 2,
-        title: 'Coorg Exploration',
-        titleHi: 'कोर्ग अन्वेषण',
-        description: 'Visit coffee plantations, waterfalls, and local markets',
-        descriptionHi: 'कॉफी बागानों, झरनों, और स्थानीय बाजारों की यात्रा करें'
-      },
-      {
-        day: 3,
-        title: 'Coorg Local Culture',
-        titleHi: 'कोर्ग स्थानीय संस्कृति',
-        description: 'Experience local Coorg culture, cuisine, and markets',
-        descriptionHi: 'स्थानीय कोर्ग संस्कृति, व्यंजन, और बाजारों का अनुभव करें'
-      },
-      {
-        day: 4,
-        title: 'Departure from Coorg',
-        titleHi: 'कोर्ग से प्रस्थान',
-        description: 'Check out from hotel and transfer to airport or next destination',
-        descriptionHi: 'होटल से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
-      }
-    ],
-    included: [
-      'Hotel accommodation in Coorg',
-      'Daily breakfast',
-      'Guided tours and nature walks',
-      'Trekking permits',
-      'Local transportation within Coorg'
-    ],
-    includedHi: [
-      'कोर्ग में होटल आवास',
-      'दैनिक नाश्ता',
-      'गाइडेड टूर और प्रकृति की सैर',
-      'ट्रेकिंग परमिट',
-      'कोर्ग के भीतर स्थानीय परिवहन'
-    ],
-    excluded: [
-      'Transportation to Coorg',
-      'Lunch and dinner',
-      'Puja offerings',
-      'Shopping'
-    ],
-    excludedHi: [
-      'कोर्ग के लिए परिवहन',
-      'दोपहर का भोजन और रात का खाना',
-      'पूजा की पेशकश',
-      'खरीदारी'
-    ]
-  },
-
-
-
   {
     id: 'varkala',
     title: 'Varkala Beach Retreat',
     titleHi: 'वर्कला बीच रिट्रीट',
     description: 'Relax on the pristine beaches of Varkala, enjoy Ayurvedic treatments and stunning cliff views',
     descriptionHi: 'वर्कला के प्राचीन समुद्र तटों पर आराम करें, आयुर्वेदिक उपचार और शानदार चट्टान के दृश्य का आनंद लें',
-    price: 3299,
+    price: 2300,
     duration: 2,
-    min: 4,
+    min: 24,
     category: 'beach',
     image: '/varkala.jpg',
     gallery: [
@@ -942,59 +740,51 @@ const currentPackages: Omit<Package, 'packageType'>[] = [
         day: 1,
         title: 'Arrival in Varkala',
         titleHi: 'वर्कला में आगमन',
-        description: 'Transfer to beach resort, evening beach walk',
-        descriptionHi: 'बीच रिसॉर्ट में स्थानांतरण, शाम की समुद्र तट सैर'
+        description: 'Pickup from railway station, hotel check-in, Anjengo Fort visit, Light House visit, Golden islan, varkala beach, Dinner, Overnight stay at Varkala hotel',
+        descriptionHi: 'रेलवे स्टेशन से पिकअप, होटल चेक-इन, अंजेंगो किला यात्रा, लाइट हाउस यात्रा, गोल्डन आइलैंड, वर्कला बीच, रात का खाना, वर्कला होटल में रात भर ठहराव'
       },
       {
         day: 2,
         title: 'Varkala Relaxation',
         titleHi: 'वर्कला विश्राम',
-        description: 'Ayurvedic spa treatment and beach relaxation',
-        descriptionHi: 'आयुर्वेदिक स्पा उपचार और समुद्र तट विश्राम'
-      },
-      {
-        day: 3,
-        title: 'Local Exploration',
-        titleHi: 'स्थानीय अन्वेषण',
-        description: 'Explore local markets, temples, and cultural sites',
-        descriptionHi: 'स्थानीय बाजारों, मंदिरों, और सांस्कृतिक स्थलों का अन्वेषण करें'
-      },
-      {
-        day: 4,
-        title: 'Departure from Varkala',
-        titleHi: 'वर्कला से प्रस्थान',
-        description: 'Check out from beach resort and transfer to airport or next destination',
-        descriptionHi: 'बीच रिसॉर्ट से चेक आउट करें और हवाई अड्डे या अगले गंतव्य के लिए स्थानांतरण करें'
+        description: 'Breakfast at hotel, check-out from hotel, jatayu earth center visit, Mangrove forest visit, Kapil Beach, Kaveri Elephant Park, Departure from Varkala',
+        descriptionHi: 'होटल में नाश्ता, होटल से चेक-आउट, जटायु अर्थ सेंटर यात्रा, मैंग्रोव जंगल यात्रा, कपिल बीच, कावेरी एलीफेंट पार्क, वर्कला से प्रस्थान'
       }
+      
     ],
     included: [
-      'Beach resort accommodation',
-      'Daily breakfast',
-      'Ayurvedic spa treatments',
-      'Local transportation within Varkala',
-      'Yoga and meditation sessions'
+      'Deluxe hotel accommodation in Varkala',
+      'pickup and drop from railway station',
+      'private cab for sightseeing and transfers',
+      'sightseeing as per itinerary',
+      'Breakfast and Dinner',
+      'kayaking at mangrove forest',
+      'toll, parking, fuel charges and driver allowance',
+      'all applicable taxes and service charges'
     ],
     includedHi: [
-      'बीच रिसॉर्ट आवास',
-      'दैनिक नाश्ता',
-      'आयुर्वेदिक स्पा उपचार',
-      'वर्कला के भीतर स्थानीय परिवहन',
-      'योग और ध्यान सत्र'
+      'वर्कला में डीलक्स होटल आवास',
+      'रेलवे स्टेशन से पिकअप और ड्रॉप',
+      'दर्शनीय स्थलों और स्थानांतरण के लिए निजी कैब',
+      'यात्रा कार्यक्रम के अनुसार दर्शनीय स्थल',
+      'नाश्ता और रात का खाना',
+      'मैंग्रोव जंगल में कायकिंग',
+      'टॉल, पार्किंग, ईंधन शुल्क और ड्राइवर की अनुमति',
+      'सभी लागू कर और सेवा शुल्क'
     ],
     excluded: [
-      'Transportation to Varkala',
-      'Lunch and dinner',
+      'Entrance fees to monuments and parks',
+      'Any services not mentioned in the inclusions',
       'Personal expenses',
       'Adventure activities'
     ],
     excludedHi: [
-      'वर्कला के लिए परिवहन',
-      'दोपहर का भोजन और रात का खाना',
-      'व्यक्तिगत खर्चे',
+      'स्मारकों और पार्कों में प्रवेश शुल्क',
+      'इन्क्लूजन में नहीं उल्लिखित सेवाएं',
+      'व्यक्तिगत खर्च',
       'साहसिक गतिविधियाँ'
     ]
   },
-
 
   {
     id: 'pondicherry',
